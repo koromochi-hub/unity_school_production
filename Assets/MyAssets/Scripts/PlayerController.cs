@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 1.0f;
-    [SerializeField] float rotationSpeed = 120.0f;
+    private float moveSpeed = 1.0f;
+    private float rotationSpeed = 120.0f;
 
     // Update is called once per frame
     void Update()
