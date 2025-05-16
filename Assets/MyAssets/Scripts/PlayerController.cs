@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float moveSpeed = 1.0f;
+    private float moveSpeed = 2.0f;
     private float rotationSpeed = 120.0f;
 
     // Update is called once per frame
@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
         // 水平方向（右: 1、左: -1）
         float rotateInput = Input.GetAxis("Horizontal");
 
+        if(moveInput < 0)
+        {
+            rotateInput = -Input.GetAxis("Horizontal");
+        }
+             
         // 前進・後退の移動
         transform.Translate(Vector3.forward * moveInput * moveSpeed * Time.deltaTime);
 
