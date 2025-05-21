@@ -46,8 +46,15 @@ public class PlayerController : MonoBehaviour
 
         // 入力方向ベクトル（XZ平面）
         Vector3 inputDirection = new Vector3(h, 0f, v).normalized;
+
+        float currentY = rb.linearVelocity.y;
+
         // 入力方向に移動
-        rb.linearVelocity = inputDirection * moveSpeed;
+        Vector3 moveVelocity = inputDirection* moveSpeed;
+        moveVelocity.y = currentY;
+
+        rb.linearVelocity = moveVelocity;
+
         // 移動時に入力方向に向きを変える
         if (inputDirection != Vector3.zero)
             tf.rotation = Quaternion.LookRotation(inputDirection);

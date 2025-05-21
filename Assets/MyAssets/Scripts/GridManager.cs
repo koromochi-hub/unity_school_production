@@ -4,6 +4,7 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private float cellSize = 1f;
+    [SerializeField] private GameObject player;
 
     // ƒ}ƒX‚Éİ’u‚³‚ê‚½ã©‚Ìî•ñ‚ğ•Û
     private Dictionary<Vector2Int, GameObject> trapMap = new Dictionary<Vector2Int, GameObject>();
@@ -19,7 +20,7 @@ public class GridManager : MonoBehaviour
     {
         float x = gridPos.x * cellSize + cellSize / 2f;
         float z = gridPos.y * cellSize + cellSize / 2f;
-        return new Vector3(x, 0.5f, z); // y‚Í‚‚³
+        return new Vector3(x, player.transform.position.y + 0.5f, z); // y‚Í‚‚³
     }
 
     public bool CanPlaceTrap(Vector2Int gridPos)
