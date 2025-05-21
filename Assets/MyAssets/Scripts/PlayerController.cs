@@ -1,79 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement data")]
-    [SerializeField] private float moveSpeed; // 2.0f
-    [SerializeField] private float rotationSpeed; // 120.0f
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform tf;
+    [SerializeField] private Animator anim;
+    [SerializeField] private GridManager gridManager;
 
-    [Header("Head data")]
-    [SerializeField] private Transform headTransform;
-    [SerializeField] private LayerMask aimLayerMask;
-    [SerializeField] private float towerRotationSpeed; // 8.0f
+    [Header("移動速度"), SerializeField]
+    private float moveSpeed = 5f;
 
-    [Header("Shot data")]
-    [SerializeField] private Transform gunPoint;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private GameObject bulletPrefab;
+    [Header("罠プレハブ（3種類）")]
+    [SerializeField] private GameObject[] trapPrefabs;
 
-    // Update is called once per frame
-    void Update()
+    private int currentTrapIndex = 0;
+
+    private void Update()
     {
-        TankMovement();
-        UpdateAim();
+        Movement();
+        AnimRunning();
 
-        if (Input.GetMouseButtonDown(0))
-            Shoot();
-    }
-
-    private void Shoot()
-    {
-        GameObject bullet = Instantiate(bulletPrefab, gunPoint.position, gunPoint.rotation);
-        bullet.GetComponent<Rigidbody>().linearVelocity = gunPoint.forward * bulletSpeed;
-
-        Destroy(bullet, 5);
-    }
-
-    private void TankMovement()
-    {
-        // 垂直方向（上: 1、下: -1）
-        float moveInput = Input.GetAxis("Vertical");
-
-        // 水平方向（右: 1、左: -1）
-        float rotateInput = Input.GetAxis("Horizontal");
-
-        if (moveInput < 0)
+        // R1: 右に切り替え
+        if (Input.GetKeyDown(KeyCode.E)) // 例: R1に対応（変更可）
         {
-            rotateInput = -Input.GetAxis("Horizontal");
+            currentTrapIndex = (currentTrapIndex + 1) % trapPrefabs.Length;
         }
 
-        // 前進・後退の移動
-        transform.Translate(Vector3.forward * moveInput * moveSpeed * Time.deltaTime);
+        // L1: 左に切り替え
+        if (Input.GetKeyDown(KeyCode.Q)) // 例: L1に対応（変更可）
+        {
+            currentTrapIndex = (currentTrapIndex - 1 + trapPrefabs.Length) % trapPrefabs.Length;
+        }
 
-        // 左右旋回
-        transform.Rotate(Vector3.up, rotateInput * rotationSpeed * Time.deltaTime);
+        // □ボタン（例: Space）で設置
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SetTrap();
+        }
     }
 
-    void UpdateAim()
+    private void Movement()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        float h = Input.GetAxisRaw("Horizontal"); // A/D or ←/→
+        float v = Input.GetAxisRaw("Vertical");   // W/S or ↑/↓
 
-        if (Physics.Raycast(ray, out hit, 100f, aimLayerMask))
+        // 入力方向ベクトル（XZ平面）
+        Vector3 inputDirection = new Vector3(h, 0f, v).normalized;
+        // 入力方向に移動
+        rb.linearVelocity = inputDirection * moveSpeed;
+        // 移動時に入力方向に向きを変える
+        if (inputDirection != Vector3.zero)
+            tf.rotation = Quaternion.LookRotation(inputDirection);
+    }
+
+    private void AnimRunning()
+    {
+        if (rb.linearVelocity.magnitude > 0.1f)
+            anim.SetBool("isRunning", true);
+        else
+            anim.SetBool("isRunning", false);
+    }
+
+    private void SetTrap()
+    {
+        // プレイヤーの位置からグリッド座標を取得
+        Vector2Int gridPos = gridManager.WorldToGrid(transform.position);
+        Debug.Log("gridPos:" + gridPos);
+
+        if (gridManager.CanPlaceTrap(gridPos))
         {
-            Vector3 targetTransform = hit.point;
-            Vector3 direction = targetTransform - headTransform.position;
-            // 水平方向だけで回転するように
-            direction.y = 0f; 
-
-            // マウス位置が0に近いとき、無意味な回転などを防ぐ
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, towerRotationSpeed * Time.deltaTime);
-            }
+            gridManager.PlaceTrap(gridPos, trapPrefabs[currentTrapIndex]);
+            Debug.Log("Trap placed at " + gridPos);
+        }
+        else
+        {
+            Debug.Log("すでにそのマスに罠があります！");
         }
     }
 }
