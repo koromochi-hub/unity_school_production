@@ -18,6 +18,6 @@ public class LandMine : TrapBase
 
     private void Explode()
     {
-        Destroy(gameObject);
+        base.Trigger();
     }
 }

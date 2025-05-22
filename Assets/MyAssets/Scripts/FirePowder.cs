@@ -1,5 +1,5 @@
 using UnityEngine;
-public class Powder : TrapBase
+public class FirePowder : TrapBase
 {
     public override void Trigger()
     {
@@ -9,6 +9,6 @@ public class Powder : TrapBase
 
     private void Explode()
     {
-        Destroy(gameObject);
+        base.Trigger();
     }
 }

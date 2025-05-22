@@ -32,9 +32,10 @@ public class GridManager : MonoBehaviour
             Vector3 worldPos = new Vector3(gridPos.x + 0.5f, 0.5f, gridPos.y + 0.5f);
             GameObject trap = Instantiate(trapPrefab, worldPos, Quaternion.identity);
             TrapBase trapBase = trap.GetComponent<TrapBase>();
+
             if (trapBase != null)
             {
-                trapBase.SetGridPosition(gridPos);
+                trapBase.Initialize(gridPos);
             }
             placedTraps[gridPos] = trap;
         }
