@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
         {
             SetTrap();
         }
+
+        if (Input.GetKeyDown(KeyCode.B)) // PSコントローラーの×に相当
+        {
+            SwitchBombManager.Instance.TriggerNext();
+        }
     }
 
     private void Movement()
@@ -72,12 +77,10 @@ public class PlayerController : MonoBehaviour
     {
         // プレイヤーの位置からグリッド座標を取得
         Vector2Int gridPos = gridManager.WorldToGrid(transform.position);
-        Debug.Log("gridPos:" + gridPos);
 
-        if (gridManager.CanPlaceTrap(gridPos))
+        if (gridManager.CanSetTrap(gridPos))
         {
             gridManager.PlaceTrap(gridPos, trapPrefabs[currentTrapIndex]);
-            Debug.Log("Trap placed at " + gridPos);
         }
         else
         {

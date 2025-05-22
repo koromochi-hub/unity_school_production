@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2736521359091624758
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766126314202706646, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434246659949100510, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c8db36f30aaa5f342b1f6855de3e9b27, type: 2}
+    - target: {fileID: 4595593960536082422, guid: 24e56a06e5c3c1146b0ee3d47e22f862,
+        type: 3}
+      propertyPath: m_Name
+      value: ClaymoreLandmine Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 24e56a06e5c3c1146b0ee3d47e22f862, type: 3}
