@@ -75,12 +75,12 @@ public class PlayerController : MonoBehaviour
 
     private void SetTrap()
     {
-        // プレイヤーの位置からグリッド座標を取得
         Vector2Int gridPos = gridManager.WorldToGrid(transform.position);
 
         if (gridManager.CanSetTrap(gridPos))
         {
-            gridManager.PlaceTrap(gridPos, trapPrefabs[currentTrapIndex]);
+            PlayerStatus owner = GetComponent<PlayerStatus>();
+            gridManager.PlaceTrap(gridPos, trapPrefabs[currentTrapIndex], owner);
         }
         else
         {

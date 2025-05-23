@@ -3,17 +3,19 @@ using UnityEngine;
 public abstract class TrapBase : MonoBehaviour
 {
     protected Vector2Int gridPos;
+    protected PlayerStatus owner;
 
-    public virtual void Initialize(Vector2Int pos)
+    public virtual void Initialize(Vector2Int gridPos, PlayerStatus ownerPlayer)
     {
-        gridPos = pos;
+        this.gridPos = gridPos;
+        owner = ownerPlayer;
     }
 
-
+    // 共通の爆発処理があればここに
     public virtual void Trigger()
     {
-        // 共通の爆発処理があればここに
-        GridManager.Instance.ClearTrap(gridPos); // ← ここでグリッド情報をクリア
+        // グリッド情報をクリア
+        GridManager.Instance.ClearTrap(gridPos); 
         Destroy(gameObject);
     }
 }

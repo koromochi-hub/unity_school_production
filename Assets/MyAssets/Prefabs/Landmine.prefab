@@ -492,6 +492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8308165142692451758}
   - component: {fileID: 3475469578032819249}
+  - component: {fileID: -2535556779977070505}
   m_Layer: 0
   m_Name: Landmine
   m_TagString: Untagged
@@ -527,6 +528,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b44ca578f1b622458272348c84f0695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionEffectPrefab: {fileID: 6787014271751651573, guid: 745efe2ca775d3b4181e4a3adb8c4b76, type: 3}
+  radius: 2.5
+  damage: 25
+  knockbackForce: 10
+--- !u!135 &-2535556779977070505
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8908059258591689761}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9140774458867301126
 GameObject:
   m_ObjectHideFlags: 0

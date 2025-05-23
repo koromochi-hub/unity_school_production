@@ -4,6 +4,8 @@ public class PlayerStatus : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
 
+    [Header("ƒvƒŒƒCƒ„[î•ñ")]
+    public int playerID;
     [SerializeField] private int MaxHP = 100;
     public int CurrentHP { get; private set; }
 

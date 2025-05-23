@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
         return !placedTraps.ContainsKey(gridPos);
     }
 
-    public void PlaceTrap(Vector2Int gridPos, GameObject trapPrefab)
+    public void PlaceTrap(Vector2Int gridPos, GameObject trapPrefab, PlayerStatus owner)
     {
         if (CanSetTrap(gridPos))
         {
@@ -35,11 +35,13 @@ public class GridManager : MonoBehaviour
 
             if (trapBase != null)
             {
-                trapBase.Initialize(gridPos);
+                trapBase.Initialize(gridPos, owner);
             }
+
             placedTraps[gridPos] = trap;
         }
     }
+
 
     public void ClearTrap(Vector2Int gridPos)
     {
