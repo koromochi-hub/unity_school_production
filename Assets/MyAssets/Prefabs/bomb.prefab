@@ -132,6 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5243adc78e03f6d4ba8ebbe9efbc33bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionEffectPrefab: {fileID: 6787014271751651573, guid: 745efe2ca775d3b4181e4a3adb8c4b76, type: 3}
+  radius: 2.5
+  damage: 25
+  knockbackForce: 10
 --- !u!1 &7875127043235037873
 GameObject:
   m_ObjectHideFlags: 0
