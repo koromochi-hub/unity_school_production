@@ -1,34 +1,51 @@
 using UnityEngine;
 
-public abstract class BombBase : TrapBase
+public abstract class BombBase : TrapBase, IExplodable
 {
-    [SerializeField] protected float igniteRadius = 2.5f;
+    [Header("共通ステータス")]
+    [SerializeField] protected float radius = 2.5f;
+    [SerializeField] protected int damage = 25;
+    [SerializeField] protected float knockbackForce = 10f;
 
-    protected bool hasExploded = false;
+    protected virtual void Explode()
+{
+    Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+    DealDamageToPlayers(hits);
+    TriggerNearbyBombs(hits);
 
-    public override void Trigger()
+    base.Trigger(); // TrapBase 由来の共通後処理
+}
+
+    /// <summary>
+    /// 範囲内のプレイヤーにダメージとノックバックを与える
+    /// </summary>
+    protected void DealDamageToPlayers(Collider[] hits)
     {
-        if (hasExploded) return;
-        hasExploded = true;
-
-        // 爆発処理を呼ぶ
-        Explode();
-
-        // グリッドから削除 & 自身を削除
-        base.Trigger();
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                PlayerStatus status = hit.GetComponent<PlayerStatus>();
+                if (status != null)
+                {
+                    Vector3 knockbackDir = (hit.transform.position - transform.position).normalized;
+                    status.TakeDamage(damage, knockbackDir, knockbackForce);
+                }
+            }
+        }
     }
 
-    protected abstract void Explode();
-
-    protected void BombIgnition()
+    /// <summary>
+    /// 範囲内の他の爆弾（Bombタグ）を誘爆させる
+    /// </summary>
+    protected void TriggerNearbyBombs(Collider[] hits)
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, igniteRadius);
         foreach (var hit in hits)
         {
             if (hit.CompareTag("Bomb"))
             {
                 IExplodable explodable = hit.GetComponent<IExplodable>();
-                if (explodable != null && (Object)explodable != this)
+                if (explodable != null && (UnityEngine.Object)explodable != this)
                 {
                     explodable.Trigger();
                 }

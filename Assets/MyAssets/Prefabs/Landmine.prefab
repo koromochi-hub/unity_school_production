@@ -528,11 +528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b44ca578f1b622458272348c84f0695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffectPrefab: {fileID: 6787014271751651573, guid: 745efe2ca775d3b4181e4a3adb8c4b76, type: 3}
-  firePowder: {fileID: 641659582026804511, guid: 7341ba063e6da5146b51c3c85cff0e45, type: 3}
   radius: 2.5
-  damage: 25
+  damage: 23
   knockbackForce: 10
+  explosionEffectPrefab: {fileID: 6787014271751651573, guid: 745efe2ca775d3b4181e4a3adb8c4b76, type: 3}
 --- !u!135 &-2535556779977070505
 SphereCollider:
   m_ObjectHideFlags: 0

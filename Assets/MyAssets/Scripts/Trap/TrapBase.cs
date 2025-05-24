@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class TrapBase : MonoBehaviour, IExplodable
+public abstract class TrapBase : MonoBehaviour
 {
     protected Vector2Int gridPos;
     protected PlayerStatus owner;
-
+    protected bool hasExploded = false;
 
     public virtual void Initialize(Vector2Int gridPos, PlayerStatus ownerPlayer)
     {
@@ -19,3 +19,4 @@ public abstract class TrapBase : MonoBehaviour, IExplodable
         Destroy(gameObject);
     }
 }
+

@@ -1,14 +1,8 @@
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public class SwitchBomb : TrapBase
+public class SwitchBomb : BombBase, IExplodable
 {
     [SerializeField] private GameObject explosionEffectPrefab;
-
-    [Header("爆弾ステータス")]
-    [SerializeField] private float radius = 2.5f;
-    [SerializeField] private int damage = 18;
-    [SerializeField] private float knockbackForce = 10f;
 
     private void Start()
     {
@@ -17,10 +11,12 @@ public class SwitchBomb : TrapBase
 
     public override void Trigger()
     {
+        if (hasExploded) return;
+        hasExploded = true;
         Explode();
     }
 
-    private void Explode()
+    protected override void Explode()
     {
         Debug.Log("スイッチ爆弾が起動！");
 
@@ -28,30 +24,8 @@ public class SwitchBomb : TrapBase
         Instantiate(explosionEffectPrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
 
         Collider[] hits = Physics.OverlapSphere(transform.position, radius);
-
-        foreach (var hit in hits)
-        {
-            // プレイヤーの場合
-            if (hit.CompareTag("Player"))
-            {
-                PlayerStatus status = hit.GetComponent<PlayerStatus>();
-                if (status != null)
-                {
-                    Vector3 knockbackDir = (hit.transform.position - transform.position).normalized;
-                    status.TakeDamage(damage, knockbackDir, knockbackForce);
-                }
-            }
-
-            // 誘爆対象の場合
-            if (hit.CompareTag("Bomb"))
-            {
-                IExplodable explodable = hit.GetComponent<IExplodable>();
-                if (explodable != null && (Object)explodable != this)
-                {
-                    explodable.Trigger();
-                }
-            }
-        }
+        DealDamageToPlayers(hits);
+        TriggerNearbyBombs(hits);
 
         base.Trigger(); // トラップ削除など共通処理
     }
@@ -62,38 +36,3 @@ public class SwitchBomb : TrapBase
         Gizmos.DrawWireSphere(transform.position, 2.5f);
     }
 }
-//private void Explode()
-//{
-//    // 爆発エフェクト表示
-//    Instantiate(explosionEffectPrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
-
-//    // 範囲内の情報を取得
-//    Collider[] hits = Physics.OverlapSphere(transform.position, radius);
-//    foreach (var hit in hits)
-//    {
-//        // プレイヤーだった場合
-//        if (hit.CompareTag("Player"))
-//        {
-//            PlayerStatus status = hit.GetComponent<PlayerStatus>();
-//            if (status != null)
-//            {
-//                Vector3 knockbackDir = (hit.transform.position - transform.position).normalized;
-//                status.TakeDamage(damage, knockbackDir, knockbackForce);
-//            }
-//        }
-//        // 火薬だった場合
-//        if (hit.CompareTag("Bomb"))
-//        {
-//            IExplodable explodable = hit.GetComponent<IExplodable>();
-//            if (explodable != null && explodable != (IExplodable)this)
-//            {
-//                explodable.Trigger();
-//            }
-//        }
-//    }
-
-//    base.Trigger();
-//}
-
-// デバッグ用：爆発範囲確認
-
