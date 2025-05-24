@@ -1,25 +1,28 @@
 using UnityEngine;
 
-public class SwitchBomb : TrapBase
+public class LandMine : TrapBase
 {
     [SerializeField] private GameObject explosionEffectPrefab;
-
+    [SerializeField] private FirePowder firePowder;
     [Header("爆弾ステータス")]
     [SerializeField] private float radius = 2.5f;
-    [SerializeField] private int damage = 18;
+    [SerializeField] private int damage = 25;
     [SerializeField] private float knockbackForce = 10f;
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        SwitchBombManager.Instance.Register(this);
-    }
+        // プレイヤーが踏んだか確認
+        if (other.CompareTag("Player"))
+        {
+            PlayerStatus target = other.GetComponent<PlayerStatus>();
 
-    public override void Trigger()
-    {
-        Debug.Log("スイッチ爆弾が起動！");
-        Explode();
+            // 設置者以外が踏んだ場合に爆発
+            if (target != null && target != owner) 
+            {
+                Explode();
+            }
+        }
     }
-
     private void Explode()
     {
         // 爆発エフェクト表示
@@ -39,23 +42,17 @@ public class SwitchBomb : TrapBase
                     status.TakeDamage(damage, knockbackDir, knockbackForce);
                 }
             }
-
             // 火薬だった場合
-            FirePowder firePowder = hit.GetComponentInParent<FirePowder>();
-            Debug.Log("firePowder :" + hit);
-            if (firePowder != null)
+            if (hit.CompareTag("Bomb"))
             {
-                firePowder.Trigger(); 
+                IExplodable explodable = hit.GetComponent<IExplodable>();
+                if (explodable != null && explodable != (IExplodable)this)
+                {
+                    explodable.Trigger();
+                }
             }
         }
 
         base.Trigger();
-    }
-
-    // デバッグ用：爆発範囲確認
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 2.5f);
     }
 }
