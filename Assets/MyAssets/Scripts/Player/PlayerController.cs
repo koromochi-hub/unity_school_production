@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform tf;
     [SerializeField] private Animator anim;
     [SerializeField] private GridManager gridManager;
+    private PlayerStatus owner;
 
     [Header("移動速度"), SerializeField]
     private float moveSpeed = 5f;
@@ -14,6 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject[] trapPrefabs;
 
     private int currentTrapIndex = 0;
+
+    private void Start()
+    {
+        owner = GetComponent<PlayerStatus>();
+    }
 
     private void Update()
     {
@@ -40,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B)) // PSコントローラーの×に相当
         {
-            SwitchBombManager.Instance.TriggerNext();
+            SwitchBombManager.Instance.TriggerAll(owner);
         }
     }
 

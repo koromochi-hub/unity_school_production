@@ -3,16 +3,20 @@ using UnityEngine;
 public class SwitchBomb : BombBase, IExplodable
 {
     [SerializeField] private GameObject explosionEffectPrefab;
+    [SerializeField] private GameObject highlightPrefab;
 
     private void Start()
     {
-        SwitchBombManager.Instance.Register(this);
+        SwitchBombManager.Instance.Register(this, owner);
     }
 
     public override void Trigger()
     {
         if (hasExploded) return;
         hasExploded = true;
+
+        SwitchBombManager.Instance.Unregister(this, owner);
+        
         Explode();
     }
 

@@ -5,7 +5,8 @@ public class SwitchBombManager : MonoBehaviour
 {
     public static SwitchBombManager Instance;
 
-    private Queue<SwitchBomb> switchBombs = new Queue<SwitchBomb>();
+    // プレイヤーごとのスイッチ爆弾を管理
+    private Dictionary<PlayerStatus, List<SwitchBomb>> playerBombs = new Dictionary<PlayerStatus, List<SwitchBomb>>();
 
     private void Awake()
     {
@@ -13,23 +14,38 @@ public class SwitchBombManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // 登録されるたびにQueueに追加
-    public void Register(SwitchBomb bomb)
+    // 爆弾の登録（設置者ごとに追加）
+    public void Register(SwitchBomb bomb, PlayerStatus owner)
     {
-        switchBombs.Enqueue(bomb);
+        if (!playerBombs.ContainsKey(owner))
+        {
+            playerBombs[owner] = new List<SwitchBomb>();
+        }
+        playerBombs[owner].Add(bomb);
     }
 
-    // 呼ばれたときに先頭の爆弾を爆発させる
-    public void TriggerNext()
+    // 該当プレイヤーの全スイッチ爆弾を一斉に爆発
+    public void TriggerAll(PlayerStatus owner)
     {
-        if (switchBombs.Count > 0)
+        if (!playerBombs.ContainsKey(owner)) return;
+
+        var bombsToTrigger = new List<SwitchBomb>(playerBombs[owner]);
+
+        foreach (var bomb in bombsToTrigger)
         {
-            SwitchBomb bomb = switchBombs.Dequeue();
-            bomb.Trigger();
+            if (bomb != null) bomb.Trigger();
         }
-        else
+
+        // 一度に全爆発させたので削除
+        playerBombs[owner].Clear();
+    }
+
+    // 爆発後の手動削除
+    public void Unregister(SwitchBomb bomb, PlayerStatus owner)
+    {
+        if (playerBombs.ContainsKey(owner))
         {
-            Debug.Log("起動できるスイッチ爆弾はありません");
+            playerBombs[owner].Remove(bomb);
         }
     }
 }
