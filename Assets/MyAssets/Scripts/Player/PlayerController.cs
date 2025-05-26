@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     private void AnimRunning()
     {
-        if (transform.magnitude > 0.1f)
+        if (rb.linearVelocity.magnitude > 0.1f)
             anim.SetBool("isRunning", true);
         else
             anim.SetBool("isRunning", false);
