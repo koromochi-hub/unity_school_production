@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         float currentY = rb.linearVelocity.y;
 
         // “ü—Í•ûŒü‚ÉˆÚ“®
-        Vector3 moveVelocity = inputDirection* moveSpeed;
+        Vector3 moveVelocity = inputDirection * moveSpeed;
         moveVelocity.y = currentY;
 
         rb.linearVelocity = moveVelocity;
