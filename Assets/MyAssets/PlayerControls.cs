@@ -64,7 +64,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TriggerBomb"",
+                    ""name"": ""ActivateBomb"",
                     ""type"": ""Button"",
                     ""id"": ""314e985a-fb1f-4932-a9b2-090a89df430d"",
                     ""expectedControlType"": """",
@@ -341,7 +341,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TriggerBomb"",
+                    ""action"": ""ActivateBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -352,7 +352,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""TriggerBomb"",
+                    ""action"": ""ActivateBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -988,7 +988,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
         m_Character_SetTrap = m_Character.FindAction("SetTrap", throwIfNotFound: true);
         m_Character_Search = m_Character.FindAction("Search", throwIfNotFound: true);
-        m_Character_TriggerBomb = m_Character.FindAction("TriggerBomb", throwIfNotFound: true);
+        m_Character_ActivateBomb = m_Character.FindAction("ActivateBomb", throwIfNotFound: true);
         m_Character_SelectTrapL = m_Character.FindAction("SelectTrapL", throwIfNotFound: true);
         m_Character_SelectTrapR = m_Character.FindAction("SelectTrapR", throwIfNotFound: true);
         // UI
@@ -1074,7 +1074,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Look;
     private readonly InputAction m_Character_SetTrap;
     private readonly InputAction m_Character_Search;
-    private readonly InputAction m_Character_TriggerBomb;
+    private readonly InputAction m_Character_ActivateBomb;
     private readonly InputAction m_Character_SelectTrapL;
     private readonly InputAction m_Character_SelectTrapR;
     public struct CharacterActions
@@ -1085,7 +1085,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Character_Look;
         public InputAction @SetTrap => m_Wrapper.m_Character_SetTrap;
         public InputAction @Search => m_Wrapper.m_Character_Search;
-        public InputAction @TriggerBomb => m_Wrapper.m_Character_TriggerBomb;
+        public InputAction @ActivateBomb => m_Wrapper.m_Character_ActivateBomb;
         public InputAction @SelectTrapL => m_Wrapper.m_Character_SelectTrapL;
         public InputAction @SelectTrapR => m_Wrapper.m_Character_SelectTrapR;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
@@ -1109,9 +1109,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Search.started += instance.OnSearch;
             @Search.performed += instance.OnSearch;
             @Search.canceled += instance.OnSearch;
-            @TriggerBomb.started += instance.OnTriggerBomb;
-            @TriggerBomb.performed += instance.OnTriggerBomb;
-            @TriggerBomb.canceled += instance.OnTriggerBomb;
+            @ActivateBomb.started += instance.OnActivateBomb;
+            @ActivateBomb.performed += instance.OnActivateBomb;
+            @ActivateBomb.canceled += instance.OnActivateBomb;
             @SelectTrapL.started += instance.OnSelectTrapL;
             @SelectTrapL.performed += instance.OnSelectTrapL;
             @SelectTrapL.canceled += instance.OnSelectTrapL;
@@ -1134,9 +1134,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Search.started -= instance.OnSearch;
             @Search.performed -= instance.OnSearch;
             @Search.canceled -= instance.OnSearch;
-            @TriggerBomb.started -= instance.OnTriggerBomb;
-            @TriggerBomb.performed -= instance.OnTriggerBomb;
-            @TriggerBomb.canceled -= instance.OnTriggerBomb;
+            @ActivateBomb.started -= instance.OnActivateBomb;
+            @ActivateBomb.performed -= instance.OnActivateBomb;
+            @ActivateBomb.canceled -= instance.OnActivateBomb;
             @SelectTrapL.started -= instance.OnSelectTrapL;
             @SelectTrapL.performed -= instance.OnSelectTrapL;
             @SelectTrapL.canceled -= instance.OnSelectTrapL;
@@ -1329,7 +1329,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSetTrap(InputAction.CallbackContext context);
         void OnSearch(InputAction.CallbackContext context);
-        void OnTriggerBomb(InputAction.CallbackContext context);
+        void OnActivateBomb(InputAction.CallbackContext context);
         void OnSelectTrapL(InputAction.CallbackContext context);
         void OnSelectTrapR(InputAction.CallbackContext context);
     }

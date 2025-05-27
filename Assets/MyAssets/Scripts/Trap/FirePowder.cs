@@ -3,6 +3,12 @@ public class FirePowder : BombBase, IExplodable
 {
     [SerializeField] private GameObject explosionEffectPrefab;
 
+    public override void Initialize(Vector2Int gridPos, PlayerStatus ownerPlayer, PlayerTrapController controller, int trapIndex)
+    {
+        base.Initialize(gridPos, ownerPlayer, controller, trapIndex);
+        Debug.Log("スイッチ爆弾を初期化しました");
+    }
+
     public override void Trigger()
     {
         if (hasExploded) return;

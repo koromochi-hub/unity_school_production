@@ -25,23 +25,21 @@ public class GridManager : MonoBehaviour
         return !placedTraps.ContainsKey(gridPos);
     }
 
-    public void PlaceTrap(Vector2Int gridPos, GameObject trapPrefab, PlayerStatus owner)
+    public void PlaceTrap(Vector2Int gridPos, GameObject trapPrefab, PlayerStatus owner, PlayerTrapController trapController, int trapTypeIndex)
     {
-        if (CanSetTrap(gridPos))
+        if(CanSetTrap(gridPos))
         {
             Vector3 worldPos = new Vector3(gridPos.x + 0.5f, 0.5f, gridPos.y + 0.5f);
             GameObject trap = Instantiate(trapPrefab, worldPos, Quaternion.identity);
-            TrapBase trapBase = trap.GetComponent<TrapBase>();
 
-            if (trapBase != null)
-            {
-                trapBase.Initialize(gridPos, owner);
-            }
+
+            TrapBase trapbase = trap.GetComponent<TrapBase>();
+            trapbase.Initialize(gridPos, owner, trapController, trapTypeIndex);
 
             placedTraps[gridPos] = trap;
         }
-    }
 
+    }
 
     public void ClearTrap(Vector2Int gridPos)
     {

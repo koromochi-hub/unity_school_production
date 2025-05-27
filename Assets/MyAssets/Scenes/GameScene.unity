@@ -1485,6 +1485,7 @@ GameObject:
   - component: {fileID: 1716110419}
   - component: {fileID: 1716110421}
   - component: {fileID: 1716110420}
+  - component: {fileID: 1716110422}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1565,6 +1566,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1716110422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716110414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a266ff1466b0aee4492b38e68053f100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapPrefabs:
+  - {fileID: 5794953531139942187, guid: b7284bfd1e59df044864e08ce1193051, type: 3}
+  - {fileID: 6704882556259618669, guid: 7341ba063e6da5146b51c3c85cff0e45, type: 3}
+  - {fileID: 8908059258591689761, guid: 4ceb97db427026c46bbfc2716a6bece9, type: 3}
+  gridManager: {fileID: 1211896337}
 --- !u!1 &1920401723
 GameObject:
   m_ObjectHideFlags: 0

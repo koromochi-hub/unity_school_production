@@ -3,20 +3,25 @@ using UnityEngine;
 public class SwitchBomb : BombBase, IExplodable
 {
     [SerializeField] private GameObject explosionEffectPrefab;
-    [SerializeField] private GameObject highlightPrefab;
 
     private void Start()
     {
         SwitchBombManager.Instance.Register(this, owner);
     }
 
+    public override void Initialize(Vector2Int gridPos, PlayerStatus ownerPlayer, PlayerTrapController controller, int trapIndex)
+    {
+        base.Initialize(gridPos, ownerPlayer, controller, trapIndex);
+        Debug.Log("スイッチ爆弾を初期化しました");
+    }
+
     public override void Trigger()
     {
         if (hasExploded) return;
-        hasExploded = true;
 
+        // 登録解除は重複起動を防ぐために最初に
         SwitchBombManager.Instance.Unregister(this, owner);
-        
+
         Explode();
     }
 
@@ -25,18 +30,18 @@ public class SwitchBomb : BombBase, IExplodable
         Debug.Log("スイッチ爆弾が起動！");
 
         // 爆発エフェクト表示
-        Instantiate(explosionEffectPrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
+        if (explosionEffectPrefab != null)
+        {
+            Instantiate(explosionEffectPrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
+        }
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, radius);
-        DealDamageToPlayers(hits);
-        TriggerNearbyBombs(hits);
-
-        base.Trigger(); // トラップ削除など共通処理
+        // 爆風とダメージ処理は BombBase 側で対応
+        base.Explode();
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 2.5f);
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

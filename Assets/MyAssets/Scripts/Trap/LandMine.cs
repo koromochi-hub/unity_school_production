@@ -19,6 +19,12 @@ public class LandMine : BombBase, IExplodable
         }
     }
 
+    public override void Initialize(Vector2Int gridPos, PlayerStatus ownerPlayer, PlayerTrapController controller, int trapIndex)
+    {
+        base.Initialize(gridPos, ownerPlayer, controller, trapIndex);
+        Debug.Log("’n—‹‚ğ‰Šú‰»‚µ‚Ü‚µ‚½");
+    }
+
     public override void Trigger()
     {
         if (hasExploded) return;

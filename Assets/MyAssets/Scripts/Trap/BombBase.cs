@@ -8,17 +8,15 @@ public abstract class BombBase : TrapBase, IExplodable
     [SerializeField] protected float knockbackForce = 10f;
 
     protected virtual void Explode()
-{
-    Collider[] hits = Physics.OverlapSphere(transform.position, radius);
-    DealDamageToPlayers(hits);
-    TriggerNearbyBombs(hits);
+    {
+        Debug.Log("Explode()が呼ばれました");
+        Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+        DealDamageToPlayers(hits);
+        TriggerNearbyBombs(hits);
 
-    base.Trigger(); // TrapBase 由来の共通後処理
-}
+        base.Trigger(); // TrapBase 由来の共通後処理
+    }
 
-    /// <summary>
-    /// 範囲内のプレイヤーにダメージとノックバックを与える
-    /// </summary>
     protected void DealDamageToPlayers(Collider[] hits)
     {
         foreach (var hit in hits)
@@ -35,9 +33,7 @@ public abstract class BombBase : TrapBase, IExplodable
         }
     }
 
-    /// <summary>
-    /// 範囲内の他の爆弾（Bombタグ）を誘爆させる
-    /// </summary>
+
     protected void TriggerNearbyBombs(Collider[] hits)
     {
         foreach (var hit in hits)

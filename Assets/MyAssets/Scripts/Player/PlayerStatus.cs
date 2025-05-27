@@ -19,7 +19,7 @@ public class PlayerStatus : MonoBehaviour
         CurrentHP -= damage;
         if (CurrentHP < 0) CurrentHP = 0;
 
-        rb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
+        //rb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
         Debug.Log($"{gameObject.name} はダメージを受けた！ 残りHP: {CurrentHP}");
 
         // 死亡処理などが必要ならここに追加
