@@ -14,7 +14,7 @@ public class SwitchBombManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // ”š’e‚Ì“o˜^iİ’uÒ‚²‚Æ‚É’Ç‰Áj
+    // ”š’e‚Ì“o˜^iƒvƒŒƒCƒ„[‚²‚Æ‚É’Ç‰Áj
     public void Register(SwitchBomb bomb, PlayerStatus owner)
     {
         if (!playerBombs.ContainsKey(owner))

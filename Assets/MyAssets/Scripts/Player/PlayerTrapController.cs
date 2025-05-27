@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerTrapController : MonoBehaviour
 {
-    private PlayerControls controls;
+    private PlayerInput playerInput;
     [SerializeField] private GameObject[] trapPrefabs;
     [SerializeField] private GridManager gridManager;
 
@@ -13,12 +13,12 @@ public class PlayerTrapController : MonoBehaviour
 
     private void Awake()
     {
-        controls = new PlayerControls();
+        playerInput = GetComponent<PlayerInput>();
 
-        controls.Character.SelectTrapL.performed += context => SwitchTrap(-1);
-        controls.Character.SelectTrapR.performed += context => SwitchTrap(1);
-        controls.Character.SetTrap.performed += context => SetTrap();
-        controls.Character.ActivateBomb.performed += context => ActivateBomb();
+        playerInput.Character.SelectTrapL.performed += context => SwitchTrap(-1);
+        playerInput.Character.SelectTrapR.performed += context => SwitchTrap(1);
+        playerInput.Character.SetTrap.performed += context => SetTrap();
+        playerInput.Character.ActivateBomb.performed += context => ActivateBomb();
     }
 
     private void Start()
@@ -66,6 +66,6 @@ public class PlayerTrapController : MonoBehaviour
         
     }
 
-    private void OnEnable() => controls.Enable();
-    private void OnDisable() => controls.Disable();
+    private void OnEnable() => playerInput.Enable();
+    private void OnDisable() => playerInput.Disable();
 }

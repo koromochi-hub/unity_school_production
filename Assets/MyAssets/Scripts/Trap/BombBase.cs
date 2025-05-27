@@ -9,12 +9,10 @@ public abstract class BombBase : TrapBase, IExplodable
 
     protected virtual void Explode()
     {
-        Debug.Log("Explode()‚ªŒÄ‚Î‚ê‚Ü‚µ‚½");
         Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+        base.Trigger();
         DealDamageToPlayers(hits);
         TriggerNearbyBombs(hits);
-
-        base.Trigger(); // TrapBase —R—ˆ‚Ì‹¤’ÊŒãˆ—
     }
 
     protected void DealDamageToPlayers(Collider[] hits)
@@ -40,10 +38,13 @@ public abstract class BombBase : TrapBase, IExplodable
         {
             if (hit.CompareTag("Bomb"))
             {
-                IExplodable explodable = hit.GetComponent<IExplodable>();
-                if (explodable != null && (UnityEngine.Object)explodable != this)
+                // ©•ª©g‚ÍœŠO
+                if (hit.gameObject == this.gameObject) continue;
+
+                TrapBase trap = hit.GetComponent<TrapBase>();
+                if (trap != null && !trap.HasExploded())
                 {
-                    explodable.Trigger();
+                    _ = trap.DelayedTrigger(0.1f);
                 }
             }
         }

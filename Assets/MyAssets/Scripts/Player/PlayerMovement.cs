@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerControls controls;
+    private PlayerInput playerInput;
     private CharacterController characterController;
     [SerializeField] private Animator animator;
 
@@ -19,13 +19,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        controls = new PlayerControls();
+        playerInput = new PlayerInput();
 
-        controls.Character.Run.performed += context => moveInput = context.ReadValue<Vector2>();
-        controls.Character.Run.canceled += context => moveInput = Vector2.zero;
+        playerInput.Character.Run.performed += context => moveInput = context.ReadValue<Vector2>();
+        playerInput.Character.Run.canceled += context => moveInput = Vector2.zero;
 
-        controls.Character.Search.performed += context => speed = walkSpeed;
-        controls.Character.Search.canceled += context => speed = runSpeed;
+        playerInput.Character.Search.performed += context => speed = walkSpeed;
+        playerInput.Character.Search.canceled += context => speed = runSpeed;
     }
 
     private void Start()
@@ -69,6 +69,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isRunning", moveInput.sqrMagnitude > 0.01f);
     }
 
-    private void OnEnable() => controls.Enable();
-    private void OnDisable() => controls.Disable();
+    private void OnEnable() => playerInput.Enable();
+    private void OnDisable() => playerInput.Disable();
 }
