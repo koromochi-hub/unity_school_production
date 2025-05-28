@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInput playerInput;
     private CharacterController characterController;
     [SerializeField] private Animator animator;
 
@@ -19,20 +20,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = new PlayerInput();
-
-        playerInput.Character.Run.performed += context => moveInput = context.ReadValue<Vector2>();
-        playerInput.Character.Run.canceled += context => moveInput = Vector2.zero;
-
-        playerInput.Character.Search.performed += context => speed = walkSpeed;
-        playerInput.Character.Search.canceled += context => speed = runSpeed;
+        characterController = GetComponent<CharacterController>();
+        speed = runSpeed;
     }
 
-    private void Start()
+    public void OnRun(InputAction.CallbackContext context)
     {
-        characterController = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
-        speed = runSpeed;
+        if (context.performed)
+            moveInput = context.ReadValue<Vector2>();
+        else if (context.canceled)
+            moveInput = Vector2.zero;
+    }
+
+    public void OnSearch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            speed = walkSpeed;
+        else if (context.canceled)
+            speed = runSpeed;
     }
 
     private void Update()
@@ -68,7 +73,4 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isRunning", moveInput.sqrMagnitude > 0.01f);
     }
-
-    private void OnEnable() => playerInput.Enable();
-    private void OnDisable() => playerInput.Disable();
 }

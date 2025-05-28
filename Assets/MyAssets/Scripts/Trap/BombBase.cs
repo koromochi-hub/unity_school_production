@@ -31,7 +31,6 @@ public abstract class BombBase : TrapBase, IExplodable
         }
     }
 
-
     protected void TriggerNearbyBombs(Collider[] hits)
     {
         foreach (var hit in hits)
