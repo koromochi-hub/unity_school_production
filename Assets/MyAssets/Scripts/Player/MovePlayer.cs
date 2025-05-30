@@ -29,7 +29,6 @@ public class PlayerMove : MonoBehaviour
             moveInput = context.ReadValue<Vector2>();
         else if (context.canceled)
             moveInput = Vector2.zero;
-        Debug.Log(context);
     }
 
     public void OnSearch(InputAction.CallbackContext context)

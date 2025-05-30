@@ -69,9 +69,4 @@ public class PlayerTrapController : MonoBehaviour
     {
         trapCurrentCounts[trapIndex] = Mathf.Max(0, trapCurrentCounts[trapIndex] - 1);
     }
-
-    //public void Initialize(GridManager gm)
-    //{
-    //    gridManager = gm;
-    //}
 }

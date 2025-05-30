@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4310999064630825634, guid: 220302d546e5c60468805f559d7f3bdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4310999064630825634, guid: 220302d546e5c60468805f559d7f3bdb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -326,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4310999064630825634, guid: 220302d546e5c60468805f559d7f3bdb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.886
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4310999064630825634, guid: 220302d546e5c60468805f559d7f3bdb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -355,6 +355,10 @@ PrefabInstance:
     - target: {fileID: 4310999064630825634, guid: 220302d546e5c60468805f559d7f3bdb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4696371964850942715, guid: 220302d546e5c60468805f559d7f3bdb, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Keyboard&Mouse
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
