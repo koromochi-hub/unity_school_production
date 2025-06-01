@@ -511,10 +511,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 3
   m_MaxPlayerCount: 2
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_AllowJoining: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -567,11 +567,72 @@ MonoBehaviour:
   m_GameObject: {fileID: 1091363615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5404393b96f9d6a42b56e23f4c6f86e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d8a7afce6167a0459aa93ee4d871cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInputManager: {fileID: 1091363616}
+  status: {fileID: 0}
   SpawnPoint1: {fileID: 210104841}
   SpawnPoint2: {fileID: 1698415}
+  Player1: {fileID: 4066929876316912700, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+  Player2: {fileID: 2129103620470947367, guid: b40bf2aad4104d145aded482dd4a749f, type: 3}
+--- !u!1001 &1187724370
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4066929876316912700, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_Name
+      value: Player2(CinemaChine)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
 --- !u!1 &1211896332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,3 +1198,4 @@ SceneRoots:
   - {fileID: 1726976620}
   - {fileID: 1947695540}
   - {fileID: 1696543126}
+  - {fileID: 1187724370}

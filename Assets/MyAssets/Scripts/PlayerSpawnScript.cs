@@ -3,16 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpawnScript : MonoBehaviour
 {
-    public GameObject playerPrefab1;
-    public GameObject playerPrefab2;
+    [SerializeField] private PlayerInputManager playerInputManager;
+    public PlayerStatus status;
     public Transform SpawnPoint1, SpawnPoint2;
+    public GameObject Player1, Player2;
 
     private void Awake()
     {
-        PlayerInput.Instantiate(playerPrefab1, controlScheme: null, pairWithDevice: null,
-            splitScreenIndex: 0, position: SpawnPoint1.position, rotation: SpawnPoint1.rotation);
+        playerInputManager.onPlayerJoined += OnPlayerJoined;
 
-        PlayerInput.Instantiate(playerPrefab2, controlScheme: null, pairWithDevice: null,
-            splitScreenIndex: 1, position: SpawnPoint2.position, rotation: SpawnPoint2.rotation);
+        Instantiate(Player1, SpawnPoint1.position, SpawnPoint1.rotation);
+        Instantiate(Player2, SpawnPoint2.position, SpawnPoint2.rotation);
+    }
+
+    private void OnDestroy()
+    {
+        playerInputManager.onPlayerJoined -= OnPlayerJoined;
+    }
+
+    private void OnPlayerJoined(PlayerInput playerInput)
+    {
+        status.playerId = playerInput.playerIndex;
     }
 }
