@@ -10,6 +10,9 @@ public abstract class TrapBase : MonoBehaviour
     protected bool hasExploded = false;
     protected int trapIndex;
 
+    // 「所有者を外部から取得できる」プロパティを追加
+    public PlayerStatus Owner => owner;
+
     public bool HasExploded() => hasExploded;
 
 

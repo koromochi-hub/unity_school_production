@@ -5,7 +5,7 @@ namespace UTJ
 {
     [CustomEditor(typeof(SpringSphereCollider))]
     [CanEditMultipleObjects]
-    public class SpringSphereColliderInspector : Editor
+    public class SpringSphereColliderInspector : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

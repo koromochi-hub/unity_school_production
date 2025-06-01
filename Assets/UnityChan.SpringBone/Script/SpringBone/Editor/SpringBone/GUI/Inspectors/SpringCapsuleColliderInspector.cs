@@ -5,7 +5,7 @@ namespace UTJ
 {
     [CustomEditor(typeof(SpringCapsuleCollider))]
     [CanEditMultipleObjects]
-    public class SpringCapsuleColliderInspector : Editor
+    public class SpringCapsuleColliderInspector : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -13,13 +13,15 @@ namespace UTJ
             if (boneSelector == null)
             {
                 boneSelector = SpringColliderBoneSelector.Create<SpringCapsuleCollider>(
-                    targets, (bone, colliders) => bone.capsuleColliders.Any(collider => colliders.Contains(collider)));
+                    targets,
+                    (bone, colliders) =>
+                        bone.capsuleColliders.Any(collider => colliders.Contains(collider))
+                );
             }
             boneSelector.ShowInspector();
         }
 
-        // private
-
+        // --- private メンバ ---
         private SpringColliderBoneSelector boneSelector;
     }
 }

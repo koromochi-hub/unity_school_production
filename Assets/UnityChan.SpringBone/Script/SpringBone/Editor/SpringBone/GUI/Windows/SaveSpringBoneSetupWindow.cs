@@ -38,7 +38,7 @@ namespace UTJ
                     typeof(Animator)
                 };
                 springBoneRoot = characterRootComponentTypes
-                    .Select(type => FindObjectOfType(type) as Component)
+                    .Select(type => FindFirstObjectByType(type) as Component)
                     .Where(component => component != null)
                     .Select(component => component.gameObject)
                     .FirstOrDefault();

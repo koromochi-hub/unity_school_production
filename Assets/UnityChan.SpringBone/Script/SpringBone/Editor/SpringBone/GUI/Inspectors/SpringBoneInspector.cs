@@ -11,7 +11,7 @@ namespace UTJ
 
     [CustomEditor(typeof(SpringBone))]
     [CanEditMultipleObjects]
-    public class SpringBoneInspector : Editor
+    public class SpringBoneInspector : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

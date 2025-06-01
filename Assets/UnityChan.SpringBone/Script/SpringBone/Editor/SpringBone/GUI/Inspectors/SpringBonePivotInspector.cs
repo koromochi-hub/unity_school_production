@@ -7,7 +7,7 @@ namespace UTJ
 {
     [CustomEditor(typeof(SpringBonePivot))]
     [CanEditMultipleObjects]
-    public class SpringBonePivotInspector : Editor
+    public class SpringBonePivotInspector : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

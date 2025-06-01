@@ -8,7 +8,7 @@ namespace UTJ
 
     [CustomEditor(typeof(SpringManager))]
     [CanEditMultipleObjects]
-    public class SpringManagerInspector : Editor
+    public class SpringManagerInspector : UnityEditor.Editor
     {
         public class InspectorButton<T>
         {

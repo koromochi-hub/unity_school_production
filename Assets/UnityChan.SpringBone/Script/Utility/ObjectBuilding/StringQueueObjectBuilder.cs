@@ -34,7 +34,7 @@ namespace UTJ
                 if (parentName.Length > 0)
                 {
                     var children = gameObject.GetComponentsInChildren<Transform>(true);
-                    newParent = Object.FindObjectsOfType<Transform>()
+                    newParent = Object.FindObjectsByType<Transform>(FindObjectsSortMode.None)
                         .Where(item => item.name == parentName
                             && !children.Contains(item))
                         .FirstOrDefault();
@@ -279,7 +279,7 @@ namespace UTJ
             private static Component FindComponent(System.Type type, GameObject root, string objectName)
             {
                 IEnumerable<Component> sourceComponents = (root == null)
-                    ? Object.FindObjectsOfType(type)
+                    ? Object.FindObjectsByType(type, FindObjectsSortMode.None)
                         .Select(item => item as Component)
                         .Where(item => item != null)
                     : root.GetComponentsInChildren(type, true);

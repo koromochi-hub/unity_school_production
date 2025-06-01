@@ -1,0 +1,19 @@
+{
+    "asset": "27f9a37f29e53524e91a888f178d1729",
+    "fileName": "01972b53-6f09-7ce6-99b4-be54ce42072a.png",
+    "prompt": "A marker sprite to represent discovered traps in a grid-based game.",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": -1,
+    "w3CTraceId": "fed48596efc2bc187ec3c6b6733a5cc4",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

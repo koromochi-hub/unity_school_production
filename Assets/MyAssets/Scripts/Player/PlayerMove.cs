@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     private Rigidbody rb;
+    [SerializeField] private PlayerSearch playerSearch;
     [SerializeField] private Animator animator;
 
     [Header("Movement Settings")]
@@ -20,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation; // 回転を固定
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         speed = runSpeed;
     }
 
@@ -38,14 +39,16 @@ public class PlayerMove : MonoBehaviour
         {
             speed = walkSpeed;
             isSearching = true;
+            animator.SetBool("isSearching", true);
+            playerSearch.BeginSearch();
         }
         else if (context.canceled)
         {
             speed = runSpeed;
             isSearching = false;
+            animator.SetBool("isSearching", false);
+            playerSearch.EndSearch();
         }
-            
-
     }
 
     private void FixedUpdate()
@@ -56,27 +59,22 @@ public class PlayerMove : MonoBehaviour
 
     private void ApplyMovement()
     {
-        // 水平方向の移動ベクトル
         Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-
         Vector3 velocity = move * speed;
-
-        // 移動（Rigidbodyで直接位置を制御）
         rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
     }
 
     private void RotateCharacter()
     {
         Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
-        bool isMoving = direction.sqrMagnitude > 0.01f;
+        bool isMoving = direction.sqrMagnitude > 0;
 
-        if (direction.sqrMagnitude > 0.01f)
+        if (isMoving)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime));
         }
 
-        animator.SetBool("isRunning", isMoving && !isSearching);
-        animator.SetBool("isSearching", isMoving && isSearching);
+        animator.SetBool("isRunning", direction.sqrMagnitude > 0 && !isSearching);
     }
 }
