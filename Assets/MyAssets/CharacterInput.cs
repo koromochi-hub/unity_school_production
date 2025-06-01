@@ -153,6 +153,15 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabThrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""68e99226-09c7-4164-ab9b-1089c9df2dcf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -423,7 +432,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d3df1302-2dc6-4f94-96eb-7fe52c5f8e4a"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -445,7 +454,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c8351ef3-713b-43ce-b019-27aee8787f94"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -461,6 +470,28 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SelectTrapR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f49c4b26-ca57-40e7-9b63-21da300ad85d"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""GrabThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ce6c0cb-74db-4346-80b4-c183855bfb13"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabThrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1055,6 +1086,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         m_Character_ActivateBomb = m_Character.FindAction("ActivateBomb", throwIfNotFound: true);
         m_Character_SelectTrapL = m_Character.FindAction("SelectTrapL", throwIfNotFound: true);
         m_Character_SelectTrapR = m_Character.FindAction("SelectTrapR", throwIfNotFound: true);
+        m_Character_GrabThrow = m_Character.FindAction("GrabThrow", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1155,6 +1187,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_ActivateBomb;
     private readonly InputAction m_Character_SelectTrapL;
     private readonly InputAction m_Character_SelectTrapR;
+    private readonly InputAction m_Character_GrabThrow;
     /// <summary>
     /// Provides access to input actions defined in input action map "Character".
     /// </summary>
@@ -1194,6 +1227,10 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Character/SelectTrapR".
         /// </summary>
         public InputAction @SelectTrapR => m_Wrapper.m_Character_SelectTrapR;
+        /// <summary>
+        /// Provides access to the underlying input action "Character/GrabThrow".
+        /// </summary>
+        public InputAction @GrabThrow => m_Wrapper.m_Character_GrabThrow;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1241,6 +1278,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @SelectTrapR.started += instance.OnSelectTrapR;
             @SelectTrapR.performed += instance.OnSelectTrapR;
             @SelectTrapR.canceled += instance.OnSelectTrapR;
+            @GrabThrow.started += instance.OnGrabThrow;
+            @GrabThrow.performed += instance.OnGrabThrow;
+            @GrabThrow.canceled += instance.OnGrabThrow;
         }
 
         /// <summary>
@@ -1273,6 +1313,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @SelectTrapR.started -= instance.OnSelectTrapR;
             @SelectTrapR.performed -= instance.OnSelectTrapR;
             @SelectTrapR.canceled -= instance.OnSelectTrapR;
+            @GrabThrow.started -= instance.OnGrabThrow;
+            @GrabThrow.performed -= instance.OnGrabThrow;
+            @GrabThrow.canceled -= instance.OnGrabThrow;
         }
 
         /// <summary>
@@ -1622,6 +1665,13 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelectTrapR(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GrabThrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGrabThrow(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

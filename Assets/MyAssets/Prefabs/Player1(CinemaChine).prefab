@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 2837240208839671536}
   - component: {fileID: 5031120810753981405}
   - component: {fileID: 3844923231069334099}
+  - component: {fileID: 4149259435152275891}
   - component: {fileID: 8295876981559992515}
   - component: {fileID: 2211856605791701445}
   - component: {fileID: 5081544781662345509}
@@ -890,7 +891,22 @@ MonoBehaviour:
   highlightPrefab: {fileID: 6337068487110877359, guid: 72506b0eca3a6c54a9581b2a4972cb4a, type: 3}
   trapMarkerPrefab: {fileID: 7670862252784888367, guid: 07e370d4be6250d49acae4802dab1b37, type: 3}
   searchRange: 2
-  cameraTransform: {fileID: 4396943324574549088}
+--- !u!114 &4149259435152275891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936863576733310709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af00d67a80747b44bbee002c96b7363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerGrabThrow
+  maxPickupDistance: 1.5
+  holdPoint: {fileID: 1894113155441366279}
+  maxThrowForce: 15
+  throwChargeSpeed: 15
 --- !u!114 &8295876981559992515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,6 +1072,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 6f8d5e13-397d-440a-aede-d54e1143a019
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 68e99226-09c7-4164-ab9b-1089c9df2dcf
+    m_ActionName: 'Character/GrabThrow[/DualShock4GamepadHID/rightShoulder,/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Character
@@ -3301,7 +3321,7 @@ GameObject:
   - component: {fileID: 6394261373095036048}
   m_Layer: 0
   m_Name: Player1(CinemaChine)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

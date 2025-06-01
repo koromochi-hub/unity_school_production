@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GrabThrow",
+                    "type": "Button",
+                    "id": "68e99226-09c7-4164-ab9b-1089c9df2dcf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -337,7 +346,7 @@
                 {
                     "name": "",
                     "id": "d3df1302-2dc6-4f94-96eb-7fe52c5f8e4a",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -359,7 +368,7 @@
                 {
                     "name": "",
                     "id": "c8351ef3-713b-43ce-b019-27aee8787f94",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -375,6 +384,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectTrapR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f49c4b26-ca57-40e7-9b63-21da300ad85d",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "GrabThrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ce6c0cb-74db-4346-80b4-c183855bfb13",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrabThrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -43,7 +43,7 @@ public abstract class BombBase : TrapBase, IExplodable
                 TrapBase trap = hit.GetComponent<TrapBase>();
                 if (trap != null && !trap.HasExploded())
                 {
-                    _ = trap.DelayedTrigger(0.1f);
+                    _ = trap.DelayedTrigger(0.3f);
                 }
             }
         }
