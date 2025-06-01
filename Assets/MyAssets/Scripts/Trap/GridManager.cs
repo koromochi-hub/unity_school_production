@@ -37,10 +37,13 @@ public class GridManager : MonoBehaviour
             // プレイヤーごとに判定してレイヤーを設定
             int trapLayer = -1;
 
+            Debug.Log("owner.playerId:" + owner.playerId);
             if (owner.playerId == 0)
                 trapLayer = LayerMask.NameToLayer("Trap_P1");
             else if (owner.playerId == 1)
                 trapLayer = LayerMask.NameToLayer("Trap_P2");
+
+            Debug.Log(trapLayer);
 
             // レイヤー(0 ～ 31)が未設定の場合
             if (trapLayer != -1)

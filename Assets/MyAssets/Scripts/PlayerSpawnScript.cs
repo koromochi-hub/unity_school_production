@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class PlayerSpawnScript : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager playerInputManager;
-    public PlayerStatus status;
     public Transform SpawnPoint1, SpawnPoint2;
     public GameObject Player1, Player2;
 
@@ -23,6 +22,14 @@ public class PlayerSpawnScript : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        status.playerId = playerInput.playerIndex;
+        PlayerStatus playerStatus = playerInput.GetComponent<PlayerStatus>();
+        if (playerStatus != null)
+        {
+            playerStatus.playerId = playerInput.playerIndex;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStatus ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ: " + playerInput.name);
+        }
     }
 }

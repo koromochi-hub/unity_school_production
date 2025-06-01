@@ -10,11 +10,12 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float runSpeed = 3f;
-    [SerializeField] private float walkSpeed = 2.5f;
+    [SerializeField] private float walkSpeed = 1f;
     [SerializeField] private float turnSpeed = 10f;
 
     private float speed;
     private Vector2 moveInput;
+    private bool isSearching;
 
     private void Awake()
     {
@@ -34,9 +35,17 @@ public class PlayerMove : MonoBehaviour
     public void OnSearch(InputAction.CallbackContext context)
     {
         if (context.performed)
+        {
             speed = walkSpeed;
+            isSearching = true;
+        }
         else if (context.canceled)
+        {
             speed = runSpeed;
+            isSearching = false;
+        }
+            
+
     }
 
     private void FixedUpdate()
@@ -59,12 +68,15 @@ public class PlayerMove : MonoBehaviour
     private void RotateCharacter()
     {
         Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
+        bool isMoving = direction.sqrMagnitude > 0.01f;
+
         if (direction.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime));
         }
 
-        animator.SetBool("isRunning", direction.sqrMagnitude > 0.01f);
+        animator.SetBool("isRunning", isMoving && !isSearching);
+        animator.SetBool("isSearching", isMoving && isSearching);
     }
 }

@@ -575,64 +575,7 @@ MonoBehaviour:
   SpawnPoint1: {fileID: 210104841}
   SpawnPoint2: {fileID: 1698415}
   Player1: {fileID: 4066929876316912700, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-  Player2: {fileID: 2129103620470947367, guid: b40bf2aad4104d145aded482dd4a749f, type: 3}
---- !u!1001 &1187724370
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4066929876316912700, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_Name
-      value: Player2(CinemaChine)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6394261373095036048, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b8f46d9f7d6192e488659fb5aba55a4e, type: 3}
+  Player2: {fileID: 5055695158859157479, guid: ab1d552a49d199246b23875e639ec141, type: 3}
 --- !u!1 &1211896332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,4 +1141,3 @@ SceneRoots:
   - {fileID: 1726976620}
   - {fileID: 1947695540}
   - {fileID: 1696543126}
-  - {fileID: 1187724370}
