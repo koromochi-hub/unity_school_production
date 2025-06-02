@@ -53,28 +53,16 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyMovement();
-        RotateCharacter();
-    }
-
-    private void ApplyMovement()
-    {
         Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
         Vector3 velocity = move * speed;
-        rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
-    }
+        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
 
-    private void RotateCharacter()
-    {
-        Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
-        bool isMoving = direction.sqrMagnitude > 0;
-
-        if (isMoving)
+        if (move.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime));
+            Quaternion targetRot = Quaternion.LookRotation(move);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, turnSpeed * Time.fixedDeltaTime);
         }
 
-        animator.SetBool("isRunning", direction.sqrMagnitude > 0 && !isSearching);
+        animator.SetBool("isRunning", move.sqrMagnitude > 0 && !isSearching);
     }
 }

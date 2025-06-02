@@ -49,7 +49,7 @@ public class PickableObject : MonoBehaviour
                 int dmg = Mathf.RoundToInt(damageAmount);
 
                 // (d) PlayerStatus.TakeDamage(int, Vector3, float) を呼び出す
-                playerStatus.TakeDamage(dmg, knockbackDirection, knockbackForce);
+                playerStatus.TakeDamage(dmg, knockbackDirection);
             }
 
             // (e) ヒットしたらオブジェクトを破棄

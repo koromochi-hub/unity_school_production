@@ -25,7 +25,7 @@ public abstract class BombBase : TrapBase, IExplodable
                 if (status != null)
                 {
                     Vector3 knockbackDir = (hit.transform.position - transform.position).normalized;
-                    status.TakeDamage(damage, knockbackDir, knockbackForce);
+                    status.TakeDamage(damage, knockbackDir);
                 }
             }
         }

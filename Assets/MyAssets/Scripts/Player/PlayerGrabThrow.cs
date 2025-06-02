@@ -83,6 +83,7 @@ public class PlayerGrabThrow : MonoBehaviour
     /// </summary>
     private void TryPickUp()
     {
+        Debug.Log("TryPickUp()‚ªŒÄ‚Î‚ê‚Ü‚µ‚½");
         Collider[] hits = Physics.OverlapSphere(transform.position, maxPickupDistance);
         float closestDist = Mathf.Infinity;
         GameObject nearest = null;
