@@ -1,0 +1,10 @@
+{
+    "asset": "fa5e1640f224dbd46a27203d1f41f77d",
+    "fileName": "0197316c-51b6-70cd-a99f-1aa6de49358f_Preview.png",
+    "prompt": "concrete, old\r\n",
+    "negativePrompt": "low quality",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 1307585614,
+    "w3CTraceId": "49e9e513764ee35a747f75d7333e31ab",
+    "refinementMode": "Generation"
+}

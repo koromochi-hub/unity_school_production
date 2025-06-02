@@ -1,0 +1,10 @@
+{
+    "asset": "fa5e1640f224dbd46a27203d1f41f77d",
+    "fileName": "01973175-ef0a-7297-ad09-935caefca75b_Preview.png",
+    "prompt": "\r\nA wire fence with a little ivy tangled up in it",
+    "negativePrompt": "low quality",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 249496889,
+    "w3CTraceId": "51c5dff8b5fd0493571636f2d497ec32",
+    "refinementMode": "Generation"
+}

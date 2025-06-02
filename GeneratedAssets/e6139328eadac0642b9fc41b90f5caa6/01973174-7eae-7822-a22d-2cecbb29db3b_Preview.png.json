@@ -1,0 +1,10 @@
+{
+    "asset": "fa5e1640f224dbd46a27203d1f41f77d",
+    "fileName": "01973174-7eae-7822-a22d-2cecbb29db3b_Preview.png",
+    "prompt": "\rA concrete wall with some grass growing on it\r\n",
+    "negativePrompt": "low quality",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 858659574,
+    "w3CTraceId": "374845dba4b5c5b95bec3d857992fc8e",
+    "refinementMode": "Generation"
+}

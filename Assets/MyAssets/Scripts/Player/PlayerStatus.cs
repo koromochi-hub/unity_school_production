@@ -1,126 +1,29 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(PlayerMove))]
-[RequireComponent(typeof(Animator))]
 public class PlayerStatus : MonoBehaviour
 {
+    [Header("HPè¨­å®š")]
+    [Tooltip("æœ€å¤§HP")]
+    [SerializeField] private int maxHP = 100;
+
+    [SerializeField] private PlayerMove playerMove;
+
     public int playerId;
-
-    [Header("HPİ’è")]
-    public int maxHP = 100;
     private int currentHP;
-
-    [Header("ƒmƒbƒNƒoƒbƒNİ’è")]
-    [Tooltip("‰¡•ûŒü‚ÌƒmƒbƒNƒoƒbƒN‹­“x")]
-    [SerializeField] private float knockbackForce = 8f;
-
-    [Tooltip("ã•ûŒü‚ÌƒmƒbƒNƒoƒbƒN‹­“x")]
-    [SerializeField] private float knockbackUpForce = 5f;
-
-    [Tooltip("ƒmƒbƒNƒoƒbƒN‚ª—LŒø‚ÈŠÔ (•b)")]
-    [SerializeField] private float knockbackDuration = 1.0f;
-
-    // “à•”ƒLƒƒƒbƒVƒ…
-    private Rigidbody rb;
-    private Animator animator;
-    private PlayerMove playerMove;
-
-    // ƒmƒbƒNƒoƒbƒN—p
-    private bool isKnocked = false;
-    private float knockbackTimer = 0f;
-    private Vector3 knockbackVelocity = Vector3.zero;
 
     private void Awake()
     {
-        // •K{ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğƒLƒƒƒbƒVƒ…
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        playerMove = GetComponent<PlayerMove>();
-
-        if (rb == null)
-            Debug.LogError("PlayerStatus requires a Rigidbody.");
-        if (animator == null)
-            Debug.LogError("PlayerStatus requires an Animator.");
-        if (playerMove == null)
-            Debug.LogError("PlayerStatus requires a PlayerMove.");
-
         currentHP = maxHP;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
-    private void FixedUpdate()
+  
+    public void TakeDamage(int damage)
     {
-        // ƒmƒbƒNƒoƒbƒN’†‚Å‚ ‚ê‚ÎAvelocity ‚ğŒÅ’è‚µ‘±‚¯‚é
-        if (isKnocked)
-        {
-            knockbackTimer -= Time.fixedDeltaTime;
-            rb.linearVelocity = knockbackVelocity;
-
-            if (knockbackTimer <= 0f)
-            {
-                EndKnockback();
-            }
-        }
-    }
-
-    /// <summary>
-    /// ƒ_ƒ[ƒW‚ğó‚¯‚½‚Æ‚«‚ÉŒÄ‚Ño‚·
-    /// damage: —^‚¦‚éƒ_ƒ[ƒW—Ê (®”)
-    /// knockbackDirection: XZ•½–Êã‚Ì•ûŒüƒxƒNƒgƒ‹ (Y=0„§)
-    /// </summary>
-    public void TakeDamage(int damage, Vector3 knockbackDirection)
-    {
-        // HP Œ¸Z
+        // HP ã‚’æ¸›å°‘
         currentHP -= damage;
         if (currentHP < 0) currentHP = 0;
-        Debug.Log($"{gameObject.name} ‚Í {damage} ƒ_ƒ[ƒW‚ğó‚¯‚½Bc‚èHP: {currentHP}");
+        Debug.Log($"{gameObject.name} ã¯ {damage} ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸã€‚æ®‹ã‚ŠHP: {currentHP}");
 
-        // ƒmƒbƒNƒoƒbƒN‚ğŠJn
-        StartKnockback(knockbackDirection);
-    }
-
-    /// <summary>
-    /// ƒmƒbƒNƒoƒbƒN‚ğŠJn‚·‚é“à•”ƒƒ\ƒbƒh
-    /// </summary>
-    private void StartKnockback(Vector3 direction)
-    {
-        if (isKnocked) return; // ‚·‚Å‚ÉƒmƒbƒNƒoƒbƒN’†‚È‚ç–³‹
-
-        isKnocked = true;
-        knockbackTimer = knockbackDuration;
-
-        // ƒvƒŒƒCƒ„[‘€ì‚ğ–³Œø‚É‚·‚é
-        playerMove.enabled = false;
-
-        // ‰¡•ûŒü‚Ì‘¬“x
-        Vector3 horizVel = direction.normalized * knockbackForce;
-        // ã•ûŒü‚Ì‘¬“x
-        Vector3 upVel = Vector3.up * knockbackUpForce;
-        // ‡¬ƒxƒNƒgƒ‹
-        knockbackVelocity = horizVel + upVel;
-
-        // Rigidbody ‚É‰‘¬‚ğİ’è
-        rb.linearVelocity = knockbackVelocity;
-
-        // ƒ_ƒEƒ“ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶ (DownTrigger ‚ğƒZƒbƒg)
-        animator.SetTrigger("DownTrigger");
-    }
-
-    /// <summary>
-    /// ƒmƒbƒNƒoƒbƒN‚ªI—¹‚µ‚½‚Æ‚«‚ÉŒÄ‚Ño‚·“à•”ƒƒ\ƒbƒh
-    /// </summary>
-    private void EndKnockback()
-    {
-        isKnocked = false;
-        knockbackTimer = 0f;
-        knockbackVelocity = Vector3.zero;
-
-        // ƒvƒŒƒCƒ„[‘€ì‚ğÄ“x—LŒø‰»
-        playerMove.enabled = true;
-
-        // ƒAƒjƒ[ƒ^[‚Ì DownTrigger ‚ğƒŠƒZƒbƒg‚µ‚Äó‘Ô‚ğ–ß‚·
-        animator.ResetTrigger("DownTrigger");
-        // •K—v‚É‰‚¶‚Ä•Ê‚ÌƒgƒŠƒK[‚âƒtƒ‰ƒO‚ğİ’è‚µAIdle/Runó‘Ô‚Ö‘JˆÚ‚³‚¹‚Ä‚­‚¾‚³‚¢
     }
 }
+

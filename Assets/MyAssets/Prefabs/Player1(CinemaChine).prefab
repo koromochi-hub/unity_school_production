@@ -799,11 +799,9 @@ GameObject:
   - component: {fileID: 2837240208839671536}
   - component: {fileID: 5031120810753981405}
   - component: {fileID: 3844923231069334099}
-  - component: {fileID: 4149259435152275891}
   - component: {fileID: 8295876981559992515}
   - component: {fileID: 2211856605791701445}
   - component: {fileID: 5081544781662345509}
-  - component: {fileID: 6468759254759915073}
   m_Layer: 0
   m_Name: Player(Rig)1
   m_TagString: Player
@@ -839,11 +837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9799fac0f20509488e4c540f05cea75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
   maxHP: 100
-  knockbackForce: 8
-  knockbackUpForce: 5
-  knockbackDuration: 1
+  playerMove: {fileID: 2837240208839671536}
+  playerId: 0
 --- !u!114 &2837240208839671536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,22 +890,6 @@ MonoBehaviour:
   highlightPrefab: {fileID: 6337068487110877359, guid: 72506b0eca3a6c54a9581b2a4972cb4a, type: 3}
   trapMarkerPrefab: {fileID: 7670862252784888367, guid: 07e370d4be6250d49acae4802dab1b37, type: 3}
   searchRange: 2
---- !u!114 &4149259435152275891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936863576733310709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af00d67a80747b44bbee002c96b7363, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerGrabThrow
-  maxPickupDistance: 1.5
-  holdPoint: {fileID: 1894113155441366279}
-  maxThrowForce: 15
-  throwChargeSpeed: 15
 --- !u!114 &8295876981559992515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,7 +1090,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &5081544781662345509
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1134,28 +1114,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!95 &6468759254759915073
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936863576733310709}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &988803937418235850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,13 +1549,13 @@ Camera:
     height: 0.5
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 40
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3553,7 +3511,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 40
+    FieldOfView: 20
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -4356,8 +4314,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7241282407050871665}
   - {fileID: 3591044639132482521}

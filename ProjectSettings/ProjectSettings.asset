@@ -969,10 +969,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 5137f29c-36f0-42f3-ba87-8690389bfbb4
+  cloudProjectId: fcfd04fb-daf3-42f6-ba6b-a889912d8175
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: unity_school_production
+  projectName: unity_school_production 2025-06-02_22-34-59
   organizationId: koromochi
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

@@ -104,7 +104,10 @@ public class PlayerSearch : MonoBehaviour
                 Vector2Int checkPos = playerGridPos + new Vector2Int(dx, dy);
 
                 // (a) ハイライトを置く
-                Vector3 highlightWorld = new Vector3(checkPos.x + 0.5f, 0.01f, checkPos.y + 0.5f);
+                float highlightY = transform.position.y + 0.01f;
+                Vector3 highlightWorld = new Vector3(checkPos.x + 0.5f, highlightY, checkPos.y + 0.5f);
+
+
                 var highlight = Instantiate(
                     highlightPrefab,
                     highlightWorld,
@@ -125,7 +128,10 @@ public class PlayerSearch : MonoBehaviour
                     if (!discoveredTraps.Contains(checkPos))
                     {
                         discoveredTraps.Add(checkPos);
-                        Vector3 markerWorld = new Vector3(checkPos.x + 0.5f, 0.5f, checkPos.y + 0.5f);
+
+                        float markerY = transform.position.y + 0.5f;
+                        Vector3 markerWorld = new Vector3(checkPos.x + 0.5f, markerY, checkPos.y + 0.5f);
+
                         var marker = Instantiate(trapMarkerPrefab, markerWorld, Quaternion.identity);
                         trapMarkers[checkPos] = marker;
                     }

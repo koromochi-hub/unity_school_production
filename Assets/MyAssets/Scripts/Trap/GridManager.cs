@@ -34,8 +34,12 @@ public class GridManager : MonoBehaviour
     {
         if(CanSetTrap(gridPos))
         {
-            // 0.5‚¸‚ç‚µ‚Ä‚é
-            Vector3 worldPos = new Vector3(gridPos.x + 0.5f, 0.5f, gridPos.y + 0.5f);
+            float worldX = gridPos.x + 0.5f;
+            float worldZ = gridPos.y + 0.5f;
+
+            float worldY = owner.transform.position.y + 0.5f;
+
+            Vector3 worldPos = new Vector3(worldX, worldY, worldZ);
             GameObject trap = Instantiate(trapPrefab, worldPos, Quaternion.identity);
 
 

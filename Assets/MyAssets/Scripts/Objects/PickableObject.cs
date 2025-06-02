@@ -43,13 +43,13 @@ public class PickableObject : MonoBehaviour
             {
                 // (b) ノックバック方向を計算:
                 //     「当たったプレイヤーの位置 - 投げられたオブジェクトの現在位置」で方向を求める
-                Vector3 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                Vector3 knockbackDir = (collision.transform.position - transform.position).normalized;
 
                 // (c) ダメージ量は int にキャスト
-                int dmg = Mathf.RoundToInt(damageAmount);
+                int damage = Mathf.RoundToInt(damageAmount);
 
                 // (d) PlayerStatus.TakeDamage(int, Vector3, float) を呼び出す
-                playerStatus.TakeDamage(dmg, knockbackDirection);
+                playerStatus.TakeDamage(damage);
             }
 
             // (e) ヒットしたらオブジェクトを破棄

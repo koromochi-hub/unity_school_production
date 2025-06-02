@@ -53,16 +53,17 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-        Vector3 velocity = move * speed;
-        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+        // Flying / GroundStun 中は playerMove.enabled = false になっており、このメソッド自体が呼ばれない
+        Vector3 moveDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
+        Vector3 targetVelocity = moveDir * speed;
+        rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
 
-        if (move.sqrMagnitude > 0.01f)
+        if (moveDir.sqrMagnitude > 0f)
         {
-            Quaternion targetRot = Quaternion.LookRotation(move);
+            Quaternion targetRot = Quaternion.LookRotation(moveDir);
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRot, turnSpeed * Time.fixedDeltaTime);
         }
 
-        animator.SetBool("isRunning", move.sqrMagnitude > 0 && !isSearching);
+        animator.SetBool("isRunning", moveDir.sqrMagnitude > 0 && !isSearching);
     }
 }

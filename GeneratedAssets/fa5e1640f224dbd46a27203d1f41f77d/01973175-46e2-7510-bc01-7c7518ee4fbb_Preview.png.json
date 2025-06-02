@@ -1,0 +1,10 @@
+{
+    "asset": "fa5e1640f224dbd46a27203d1f41f77d",
+    "fileName": "01973175-46e2-7510-bc01-7c7518ee4fbb_Preview.png",
+    "prompt": "\rIvy-covered fence\r\n\r\n",
+    "negativePrompt": "low quality",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 1781618596,
+    "w3CTraceId": "7a7ecc011c78e38268323a84d68d838d",
+    "refinementMode": "Generation"
+}
