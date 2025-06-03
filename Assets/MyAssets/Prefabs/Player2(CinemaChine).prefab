@@ -617,7 +617,7 @@ Transform:
   m_GameObject: {fileID: 807263837581070748}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65, y: 0.71158, z: -0.46003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -754,6 +754,37 @@ MonoBehaviour:
   sphereColliders: []
   capsuleColliders: []
   panelColliders: []
+--- !u!1 &1099826311337756039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8296443736859324840}
+  m_Layer: 0
+  m_Name: CaryPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8296443736859324840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099826311337756039}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1203666359560000383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165947812375837078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,6 +1538,37 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0000003874302, y: 0.07853475, z: -0.08217795}
     m_Extent: {x: 0.36847165, y: 0.24225092, z: 0.50678533}
   m_DirtyAABB: 0
+--- !u!1 &2040896820423275188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3796645182023900433}
+  m_Layer: 0
+  m_Name: GrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3796645182023900433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040896820423275188}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1203666359560000383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2171643286837035270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,7 +3032,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 447
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3725,6 +3787,7 @@ GameObject:
   - component: {fileID: 4857219904374165117}
   - component: {fileID: 4417548775141908997}
   - component: {fileID: 3592972723826504647}
+  - component: {fileID: 4864791696828821016}
   - component: {fileID: 2215991033616438926}
   - component: {fileID: 1593530117423735272}
   - component: {fileID: 8355624916889718913}
@@ -3749,6 +3812,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2831094307199272053}
+  - {fileID: 3796645182023900433}
+  - {fileID: 8296443736859324840}
   m_Father: {fileID: 6855782560622924285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4032907186134811900
@@ -3816,6 +3881,28 @@ MonoBehaviour:
   highlightPrefab: {fileID: 6337068487110877359, guid: 72506b0eca3a6c54a9581b2a4972cb4a, type: 3}
   trapMarkerPrefab: {fileID: 7670862252784888367, guid: 07e370d4be6250d49acae4802dab1b37, type: 3}
   searchRange: 2
+--- !u!114 &4864791696828821016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884492165937729386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518ee1648fa3f3a46946e3a758623c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerGrabThrow
+  pickableTag: Pickable
+  grabRange: 1
+  pickableLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  grabPoint: {fileID: 3796645182023900433}
+  carryPoint: {fileID: 8296443736859324840}
+  minThrowForce: 5
+  maxThrowForce: 15
+  maxChargeTime: 1.5
 --- !u!114 &2215991033616438926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3986,7 +4073,7 @@ MonoBehaviour:
     m_ActionId: 68e99226-09c7-4164-ab9b-1089c9df2dcf
     m_ActionName: 'Character/GrabThrow[/DualShock4GamepadHID/rightShoulder,/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Character
   m_SplitScreenIndex: 0
   m_Camera: {fileID: 0}
@@ -4037,9 +4124,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.18
-  m_Height: 1
+  m_Height: 0.9
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!1 &4915779583212386190
 GameObject:
   m_ObjectHideFlags: 0

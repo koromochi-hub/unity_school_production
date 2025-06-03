@@ -1,171 +1,195 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerGrabThrow : MonoBehaviour
 {
-    [Header("掴む／投げる 設定")]
-    [SerializeField, Tooltip("拾えるオブジェクトを検知する半径")]
-    private float maxPickupDistance = 1.5f;
+    [Header("掴む（Grab）設定")]
+    [Tooltip("掴めるオブジェクトのタグ (Pickable など)")]
+    [SerializeField] private string pickableTag = "Pickable";
 
-    [SerializeField, Tooltip("オブジェクトを持ったときアタッチするホールドポイント")]
-    private Transform holdPoint;
+    [Tooltip("掴む検出範囲 (メートル)")]
+    [SerializeField] private float grabRange = 1.0f;
 
-    [SerializeField, Tooltip("押し続けたときの最大投擲力")]
-    private float maxThrowForce = 15f;
+    [Tooltip("掴むときに使うレイヤーマスク (Pickable オブジェクトのレイヤー)")]
+    [SerializeField] private LayerMask pickableLayerMask;
 
-    [SerializeField, Tooltip("投擲力をためる速さ (1秒で maxThrowForce まで上げるなら maxThrowForce / 1f)")]
-    private float throwChargeSpeed = 15f;
+    [Tooltip("オブジェクトを持つ位置")]
+    [SerializeField] private Transform grabPoint;
+    [SerializeField] private Transform carryPoint;
 
-    // --- 内部フィールド ---
-    private GameObject heldObject = null;
-    private Rigidbody heldRigidbody = null;
-    private bool isCharging = false;
-    private float currentThrowForce = 0f;
-    private PlayerStatus playerStatus;
+    [Header("投げる（Throw）設定")]
+    [Tooltip("投げるときの最小初速")]
+    [SerializeField] private float minThrowForce = 5f;
 
-    private void Start()
+    [Tooltip("投げるときの最大初速")]
+    [SerializeField] private float maxThrowForce = 15f;
+
+    [Tooltip("ボタン長押しによる最大チャージ時間 (秒)")]
+    [SerializeField] private float maxChargeTime = 1.5f;
+
+    // ────── 内部キャッシュ ──────
+    private PlayerInput playerInput;
+    private InputAction grabAction;
+
+    private GameObject carryingObject = null;   // 現在掴んでいるオブジェクト
+    private Rigidbody carryRb = null;            // そのオブジェクトの Rigidbody
+
+    private float grabChargeTimer = 0f;       // 「ボタン長押し」による投擲強度チャージ用タイマー
+    private bool isChargingThrow = false;     // 現在投げる強度をチャージしているか
+
+    private void Awake()
     {
-        playerStatus = GetComponent<PlayerStatus>();
-        if (holdPoint == null)
-        {
-            Debug.LogError("PlayerGrabThrow: HoldPoint が Inspector にセットされていません。");
-        }
+        playerInput = GetComponent<PlayerInput>();
+        if (playerInput == null)
+            Debug.LogError("GrabThrow: PlayerInput がアタッチされていません。");
+
+        grabAction = playerInput.actions["GrabThrow"];
+        if (grabAction == null)
+            Debug.LogError("GrabThrow: PlayerInput の ActionMap に 'GrabThrow' がありません。");
+
+        if (carryPoint == null)
+            Debug.LogError("GrabThrow: carryPoint がアサインされていません。");
     }
 
-    /// <summary>
-    /// PlayerInput の「GrabThrow」アクションから呼び出されるメソッド
-    /// </summary>
-    public void OnGrabThrow(InputAction.CallbackContext context)
+    private void OnEnable()
     {
-        if (context.started)
-        {
-            if (heldObject == null)
-            {
-                TryPickUp();
-            }
-            else
-            {
-                // すでに持っているなら投げるためチャージ開始
-                isCharging = true;
-                currentThrowForce = 0f;
-            }
-        }
-        else if (context.canceled)
-        {
-            if (heldObject != null && isCharging)
-            {
-                ThrowHeldObject();
-                isCharging = false;
-                currentThrowForce = 0f;
-            }
-        }
+        grabAction.started += OnGrabStarted;
+        grabAction.canceled += OnGrabCanceled;
+    }
+
+    private void OnDisable()
+    {
+        grabAction.started -= OnGrabStarted;
+        grabAction.canceled -= OnGrabCanceled;
     }
 
     private void Update()
     {
-        // チャージ中でオブジェクトを持っているなら、力を溜める
-        if (isCharging && heldObject != null)
+        // (1) 投擲チャージ処理：ボタンを押し続けている間だけタイマーを増やす
+        if (isChargingThrow && carryingObject != null)
         {
-            currentThrowForce += throwChargeSpeed * Time.deltaTime;
-            currentThrowForce = Mathf.Min(currentThrowForce, maxThrowForce);
-        }
-
-        // 持っているオブジェクトがあれば HoldPoint に追従
-        if (heldObject != null && holdPoint != null)
-        {
-            heldObject.transform.position = holdPoint.position;
-            heldObject.transform.rotation = holdPoint.rotation;
+            grabChargeTimer += Time.deltaTime;
+            if (grabChargeTimer > maxChargeTime)
+                grabChargeTimer = maxChargeTime;
         }
     }
 
     /// <summary>
-    /// 近くの "Throwable" タグ付きオブジェクトを探して掴む
+    /// グラブ用ボタンを押した瞬間 (started)
+    /// → まだ何も掴んでいなければ “掴み” をトライ
+    /// → すでに掴んでいたら“投げ”のチャージを開始
     /// </summary>
-    private void TryPickUp()
+    private void OnGrabStarted(InputAction.CallbackContext context)
     {
-        Debug.Log("TryPickUp()が呼ばれました");
-        Collider[] hits = Physics.OverlapSphere(transform.position, maxPickupDistance);
-        float closestDist = Mathf.Infinity;
-        GameObject nearest = null;
+        if (carryingObject == null)
+        {
+            TryGrab();
+        }
+        else
+        {
+            // すでにオブジェクトを持っている → 投擲のチャージ開始
+            isChargingThrow = true;
+            grabChargeTimer = 0f;
+        }
+    }
 
+    /// <summary>
+    /// グラブ用ボタンを離した瞬間 (canceled)
+    /// → もしオブジェクトを持っていれば「投げる」処理を実行
+    /// </summary>
+    private void OnGrabCanceled(InputAction.CallbackContext context)
+    {
+        if (carryingObject != null && isChargingThrow)
+        {
+            ThrowObject();
+        }
+
+        isChargingThrow = false;
+    }
+
+    /// <summary>
+    /// 付近の Pickable オブジェクトを探して掴む
+    /// </summary>
+    private void TryGrab()
+    {
+        // 1) 手元位置から grabRange 半径の OverlapSphere を実行
+        Collider[] hits = Physics.OverlapSphere(grabPoint.position, grabRange, pickableLayerMask);
+        if (hits.Length == 0) return;
+
+        // 2) 最初に見つかった Pickable タグ付きオブジェクトを掴む
+        GameObject target = null;
         foreach (var col in hits)
         {
-            if (col.gameObject.CompareTag("Throwable"))
+            if (col.CompareTag(pickableTag))
             {
-                float dist = Vector3.Distance(transform.position, col.transform.position);
-                if (dist < closestDist)
-                {
-                    closestDist = dist;
-                    nearest = col.gameObject;
-                }
+                target = col.gameObject;
+                break;
             }
         }
+        if (target == null) return;
 
-        if (nearest != null)
+        // 3) 掴む処理：Rigidbody を isKinematic にして持ち上げる
+        carryingObject = target;
+        carryRb = carryingObject.GetComponent<Rigidbody>();
+        if (carryRb != null)
         {
-            PickUp(nearest);
+            carryRb.linearVelocity = Vector3.zero;
+            carryRb.angularVelocity = Vector3.zero;
+            carryRb.useGravity = false;
+            carryRb.isKinematic = true;
         }
+
+        // 4) プレイヤーの carryPoint の子にする＆位置リセット
+        carryingObject.transform.SetParent(carryPoint);
+        carryingObject.transform.localPosition = Vector3.zero;
+        carryingObject.transform.localRotation = Quaternion.identity;
     }
 
     /// <summary>
-    /// 実際にオブジェクトを掴む処理
+    /// 掴んでいるオブジェクトを「投げる」処理
     /// </summary>
-    private void PickUp(GameObject obj)
+    private void ThrowObject()
     {
-        heldObject = obj;
-        heldRigidbody = obj.GetComponent<Rigidbody>();
+        // 1) チャージ時間をもとに強度を計算
+        float t = Mathf.Clamp01(grabChargeTimer / maxChargeTime);
+        float force = Mathf.Lerp(minThrowForce, maxThrowForce, t);
 
-        if (heldRigidbody != null)
+        // 2) 持っているオブジェクトを carryPoint から外す
+        carryingObject.transform.SetParent(null);
+
+        if (carryRb != null)
         {
-            heldRigidbody.isKinematic = true;
-            heldRigidbody.linearVelocity = Vector3.zero;
-            heldRigidbody.angularVelocity = Vector3.zero;
+            // 3) 物理挙動を復活させる
+            carryRb.isKinematic = false;
+            carryRb.useGravity = true;
+
+            // 4) 「投げられた」状態を PickableObject に伝える
+            var pickable = carryingObject.GetComponent<PickableObject>();
+            if (pickable != null)
+            {
+                pickable.SetThrown(true);
+            }
+
+            // 5) Forward ベクトル (プレイヤーの向き) に沿って飛ばす
+            Vector3 throwDir = transform.forward;
+            carryRb.AddForce(throwDir * force, ForceMode.Impulse);
         }
 
-        // PickableObject 側のバウンスをリセット
-        var pickable = obj.GetComponent<PickableObject>();
-        if (pickable != null)
-        {
-            pickable.ResetBounce();
-        }
-
-        // HoldPoint にセットして親子関係を作る
-        obj.transform.position = holdPoint.position;
-        obj.transform.rotation = holdPoint.rotation;
-        obj.transform.SetParent(holdPoint);
+        // 6) 持っている状態をクリア
+        carryingObject = null;
+        carryRb = null;
+        grabChargeTimer = 0f;
     }
 
-    /// <summary>
-    /// オブジェクトを投げる処理
-    /// </summary>
-    private void ThrowHeldObject()
-    {
-        if (heldObject == null) return;
-
-        // 親子関係を解除
-        heldObject.transform.SetParent(null);
-
-        // Rigidbody を通常モードに戻す
-        if (heldRigidbody != null)
-        {
-            heldRigidbody.isKinematic = false;
-        }
-
-        // 【投擲方向を transform.forward にする】
-        Vector3 throwDir = transform.forward;
-
-        if (heldRigidbody != null)
-        {
-            heldRigidbody.AddForce(throwDir * currentThrowForce, ForceMode.Impulse);
-        }
-
-        heldObject = null;
-        heldRigidbody = null;
-    }
-
+    // もしギズモ表示したい場合は以下を有効化
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, maxPickupDistance);
+        if (carryPoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(grabPoint.position, grabRange);
+        }
     }
 }

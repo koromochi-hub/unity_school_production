@@ -129,7 +129,7 @@ public class PlayerSearch : MonoBehaviour
                     {
                         discoveredTraps.Add(checkPos);
 
-                        float markerY = transform.position.y + 0.5f;
+                        float markerY = transform.position.y + 1f;
                         Vector3 markerWorld = new Vector3(checkPos.x + 0.5f, markerY, checkPos.y + 0.5f);
 
                         var marker = Instantiate(trapMarkerPrefab, markerWorld, Quaternion.identity);

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bomb
   - Ground
+  - Pickable
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - Trap_P1
   - Trap_P2
-  - 
+  - Pickable
   - 
   - 
   - 

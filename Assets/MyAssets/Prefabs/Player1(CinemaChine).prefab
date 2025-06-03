@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 2837240208839671536}
   - component: {fileID: 5031120810753981405}
   - component: {fileID: 3844923231069334099}
+  - component: {fileID: 7187288246238081510}
   - component: {fileID: 8295876981559992515}
   - component: {fileID: 2211856605791701445}
   - component: {fileID: 5081544781662345509}
@@ -823,6 +824,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1389580563936402196}
+  - {fileID: 7274057087688359542}
+  - {fileID: 6644578679955330708}
   m_Father: {fileID: 6394261373095036048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3552848742973040305
@@ -890,6 +893,28 @@ MonoBehaviour:
   highlightPrefab: {fileID: 6337068487110877359, guid: 72506b0eca3a6c54a9581b2a4972cb4a, type: 3}
   trapMarkerPrefab: {fileID: 7670862252784888367, guid: 07e370d4be6250d49acae4802dab1b37, type: 3}
   searchRange: 2
+--- !u!114 &7187288246238081510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936863576733310709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518ee1648fa3f3a46946e3a758623c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrabThrow
+  pickableTag: Pickable
+  grabRange: 0.7
+  pickableLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  grabPoint: {fileID: 6644578679955330708}
+  carryPoint: {fileID: 7274057087688359542}
+  minThrowForce: 5
+  maxThrowForce: 15
+  maxChargeTime: 1.5
 --- !u!114 &8295876981559992515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,9 +1136,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.18
-  m_Height: 1
+  m_Height: 0.9
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!1 &988803937418235850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,7 +1580,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 383
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2964,6 +2989,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.06
+--- !u!1 &3608492085040108780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7274057087688359542}
+  m_Layer: 0
+  m_Name: CarryPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7274057087688359542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3608492085040108780}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3019070530042189134}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3632923281786233919
 GameObject:
   m_ObjectHideFlags: 0
@@ -6486,6 +6542,37 @@ Transform:
   m_Children:
   - {fileID: 7930209905222505356}
   m_Father: {fileID: 290469093411259735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8845002344905532730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6644578679955330708}
+  m_Layer: 0
+  m_Name: GrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6644578679955330708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845002344905532730}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3019070530042189134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8861564717864756328
 GameObject:
