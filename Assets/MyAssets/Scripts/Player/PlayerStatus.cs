@@ -1,29 +1,37 @@
+// PlayerStatus.cs
 using UnityEngine;
+using System;
 
 public class PlayerStatus : MonoBehaviour
 {
-    [Header("HP設定")]
-    [Tooltip("最大HP")]
-    [SerializeField] private int maxHP = 100;
-
-    [SerializeField] private PlayerMove playerMove;
-
     public int playerId;
-    private int currentHP;
 
-    private void Awake()
+    [SerializeField] int maxHP = 100;
+    public int MaxHP => maxHP;
+
+    int currentHP;
+    public int CurrentHP
     {
+        get => currentHP;
+        set
+        {
+            int v = Mathf.Clamp(value, 0, MaxHP);
+            if (v == currentHP) return;
+            currentHP = v;
+            OnHPChanged?.Invoke(currentHP, MaxHP);
+        }
+    }
+
+    // HP変化を通知するイベント
+    public event Action<int, int> OnHPChanged;
+
+    void Awake()
+    {
+        // 初期化
         currentHP = maxHP;
     }
 
-  
-    public void TakeDamage(int damage)
-    {
-        // HP を減少
-        currentHP -= damage;
-        if (currentHP < 0) currentHP = 0;
-        Debug.Log($"{gameObject.name} は {damage} ダメージを受けた。残りHP: {currentHP}");
-
-    }
+    // ヘルパー
+    public void TakeDamage(int d) => CurrentHP -= d;
+    public void Heal(int h) => CurrentHP += h;
 }
-
