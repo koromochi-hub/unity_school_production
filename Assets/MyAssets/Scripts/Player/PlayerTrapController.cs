@@ -1,5 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System;
 
 public class PlayerTrapController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerTrapController : MonoBehaviour
     private int[] trapMaxCounts = new int[] { 1, 4, 4 };
     private int[] trapCurrentCounts;
 
+    // イベント宣言：引数は (選択中のインデックス, 現在個数, 最大個数)
+    public event Action<int, int, int> OnTrapSwitched;
+
     private void Awake()
     {
         owner = GetComponent<PlayerStatus>();
@@ -20,6 +24,9 @@ public class PlayerTrapController : MonoBehaviour
         {
             gridManager = FindFirstObjectByType<GridManager>();
         }
+
+        // 初期状態も通知しておく
+        NotifyTrapSwitched();
     }
 
     public void OnSelectTrapL(InputAction.CallbackContext context)
@@ -45,8 +52,18 @@ public class PlayerTrapController : MonoBehaviour
     private void SwitchTrap(int direction)
     {
         currentTrapIndex = (currentTrapIndex + direction + trapPrefabs.Length) % trapPrefabs.Length;
+        NotifyTrapSwitched();
     }
 
+    // 通知用メソッド
+    private void NotifyTrapSwitched()
+    {
+        int cur = trapCurrentCounts[currentTrapIndex];
+        int max = trapMaxCounts[currentTrapIndex];
+        OnTrapSwitched?.Invoke(currentTrapIndex, cur, max);
+    }
+
+    // 罠を設置／破壊して個数が変わるたびにも通知
     private void SetTrap()
     {
         Vector2Int gridPos = gridManager.WorldToGrid(transform.position);
@@ -58,6 +75,9 @@ public class PlayerTrapController : MonoBehaviour
             gridManager.PlaceTrap(gridPos, trapPrefabs[currentTrapIndex], owner, this, currentTrapIndex);
             trapCurrentCounts[currentTrapIndex]++;
         }
+
+        trapCurrentCounts[currentTrapIndex]++;
+        NotifyTrapSwitched();
     }
 
     private void ActivateBomb()
@@ -68,5 +88,7 @@ public class PlayerTrapController : MonoBehaviour
     public void OnTrapDestroyed(int trapIndex)
     {
         trapCurrentCounts[trapIndex] = Mathf.Max(0, trapCurrentCounts[trapIndex] - 1);
+        if (trapIndex == currentTrapIndex)
+            NotifyTrapSwitched();
     }
 }
