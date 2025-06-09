@@ -1,4 +1,5 @@
 // HPBarsManager.cs
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,42 +12,33 @@ public class HPBarsManager : MonoBehaviour
 
     void Awake()
     {
-        pim = FindObjectOfType<PlayerInputManager>();
+        pim = FindFirstObjectByType<PlayerInputManager>();
         if (pim == null)
         {
-            Debug.LogError("PlayerInputManager がシーンにありません！");
+            Debug.LogError("PlayerInputManager が見つかりません");
             enabled = false;
             return;
         }
-        pim.onPlayerJoined += OnPlayerJoined;
+        pim.onPlayerJoined += pi => StartCoroutine(BindHPBarNextFrame(pi));
     }
-
     void OnDestroy()
     {
         if (pim != null)
-            pim.onPlayerJoined -= OnPlayerJoined;
+            pim.onPlayerJoined -= pi => StartCoroutine(BindHPBarNextFrame(pi));
     }
 
-    void OnPlayerJoined(PlayerInput pi)
+
+    IEnumerator BindHPBarNextFrame(PlayerInput pi)
     {
+        yield return null;
         var status = pi.GetComponent<PlayerStatus>();
-        int idx = pi.playerIndex; // 0 = P1, 1 = P2
-
-        if (status == null)
+        int idx = pi.playerIndex;
+        if (status == null || idx < 0 || idx >= controllers.Length)
         {
-            Debug.LogWarning($"PlayerStatus が見つかりません: {pi.gameObject.name}");
-            return;
+            Debug.LogWarning($"HPBar 初期化失敗: status={(status == null)}, idx={idx}");
+            yield break;
         }
-        if (idx < 0 || idx >= controllers.Length)
-        {
-            Debug.LogWarning($"HPBarController の設定外のインデックス: {idx}");
-            return;
-        }
-
-        // View は Controller の子コンポーネントから自動取得
         var view = controllers[idx].GetComponent<HPBarView>();
         controllers[idx].Initialize(status, view);
-
-        Debug.Log($"Player{idx + 1} を HPBarController[{idx}] に紐づけました。");
     }
 }

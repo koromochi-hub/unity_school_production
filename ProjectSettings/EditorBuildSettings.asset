@@ -1,11 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!1045 &1
-EditorBuildSettings:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Scenes: []
-  m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 6ed1261ea0341074b88702f166bb00e2, type: 2}
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5b37b4a700a6d2245b2a67b1f5cd20a6, type: 3}
-  m_UseUCBPForAssetBundles: 0
+version https://git-lfs.github.com/spec/v1
+oid sha256:ef34984ad43f32689841bc55213c84c5fc964d0c6affa738f01afa3351fc7187
+size 413
