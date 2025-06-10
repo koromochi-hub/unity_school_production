@@ -57,8 +57,8 @@ public class HPBarController : MonoBehaviour
     {
         Color newColor;
         if (ratio < 0.3f) newColor = Color.red;
-        else if (ratio < 0.7f) newColor = Color.yellow;
-        else newColor = Color.green;
+        else if (ratio < 0.7f) newColor = Color.orange;
+        else newColor = Color.yellow;
 
         view.SetColor(newColor);
         // 点滅後にこの色へ戻すためにキャッシュ

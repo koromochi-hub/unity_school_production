@@ -1,6 +1,6 @@
+using System;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using System;
 
 public class PlayerTrapController : MonoBehaviour
 {
@@ -16,16 +16,25 @@ public class PlayerTrapController : MonoBehaviour
     // イベント宣言：引数は (選択中のインデックス, 現在個数, 最大個数)
     public event Action<int, int, int> OnTrapSwitched;
 
+    public int CurrentIndex => currentTrapIndex;
+    public int GetCurrentCount() => trapCurrentCounts[currentTrapIndex];
+    public int GetMaxCount() => trapMaxCounts[currentTrapIndex];
+
     private void Awake()
     {
         owner = GetComponent<PlayerStatus>();
         trapCurrentCounts = new int[trapPrefabs.Length];
-        if (gridManager == null)
+
+        // 初期所持数を最大数と同じにセット
+        for (int i = 0; i < trapMaxCounts.Length; i++)
         {
-            gridManager = FindFirstObjectByType<GridManager>();
+            trapCurrentCounts[i] = trapMaxCounts[i];
         }
 
-        // 初期状態も通知しておく
+        if (gridManager == null)
+            gridManager = FindFirstObjectByType<GridManager>();
+
+        // 初期状態も通知
         NotifyTrapSwitched();
     }
 
@@ -55,7 +64,6 @@ public class PlayerTrapController : MonoBehaviour
         NotifyTrapSwitched();
     }
 
-    // 通知用メソッド
     private void NotifyTrapSwitched()
     {
         int cur = trapCurrentCounts[currentTrapIndex];
@@ -63,21 +71,22 @@ public class PlayerTrapController : MonoBehaviour
         OnTrapSwitched?.Invoke(currentTrapIndex, cur, max);
     }
 
-    // 罠を設置／破壊して個数が変わるたびにも通知
     private void SetTrap()
     {
         Vector2Int gridPos = gridManager.WorldToGrid(transform.position);
 
-        if (trapCurrentCounts[currentTrapIndex] >= trapMaxCounts[currentTrapIndex]) return;
+        // 所持数が０なら設置不可
+        if (trapCurrentCounts[currentTrapIndex] <= 0)
+            return;
 
         if (gridManager.CanSetTrap(gridPos))
         {
             gridManager.PlaceTrap(gridPos, trapPrefabs[currentTrapIndex], owner, this, currentTrapIndex);
-            trapCurrentCounts[currentTrapIndex]++;
-        }
 
-        trapCurrentCounts[currentTrapIndex]++;
-        NotifyTrapSwitched();
+            // 設置時にデクリメント
+            trapCurrentCounts[currentTrapIndex]--;
+            NotifyTrapSwitched();
+        }
     }
 
     private void ActivateBomb()
@@ -87,7 +96,8 @@ public class PlayerTrapController : MonoBehaviour
 
     public void OnTrapDestroyed(int trapIndex)
     {
-        trapCurrentCounts[trapIndex] = Mathf.Max(0, trapCurrentCounts[trapIndex] - 1);
+        // 破壊時にインクリメント（上限は最大数まで）
+        trapCurrentCounts[trapIndex] = Mathf.Min(trapCurrentCounts[trapIndex] + 1, trapMaxCounts[trapIndex]);
         if (trapIndex == currentTrapIndex)
             NotifyTrapSwitched();
     }

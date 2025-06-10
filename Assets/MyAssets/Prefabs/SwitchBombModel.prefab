@@ -98,10 +98,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6884280290589356831}
-  - component: {fileID: 5996824636833367526}
   - component: {fileID: -2619628067692452147}
   m_Layer: 0
-  m_Name: SwitchBomb
+  m_Name: SwitchBombModel
   m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,29 +116,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5655580602882473859}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5996824636833367526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5794953531139942187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 335d579324fabbf4bb376a96649e6168, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 2
-  damage: 18
-  knockbackForce: 10
-  upwardModifier: 2
-  explosionEffectPrefab: {fileID: 6787014271751651573, guid: 745efe2ca775d3b4181e4a3adb8c4b76, type: 3}
 --- !u!135 &-2619628067692452147
 SphereCollider:
   m_ObjectHideFlags: 0
