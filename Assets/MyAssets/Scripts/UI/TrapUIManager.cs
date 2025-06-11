@@ -1,4 +1,3 @@
-// TrapUIManager.cs
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -12,14 +11,27 @@ public class TrapUIManager : MonoBehaviour
 
     void Awake()
     {
-        pim = FindObjectOfType<PlayerInputManager>();
+        pim = FindFirstObjectByType<PlayerInputManager>();
         if (pim == null)
         {
             Debug.LogError("PlayerInputManager が見つかりません");
             enabled = false;
             return;
         }
+
+        // 新規参加時のバインド
         pim.onPlayerJoined += OnPlayerJoined;
+    }
+
+    void Start()
+    {
+        // すでにスポーン済みのプレイヤーもまとめてバインド
+        foreach (var pi in PlayerInput.all)
+        {
+            // PlayerInputManager 経由で生成されたものだけに絞る場合は
+            // if (pi.manager == pim) ... としてください
+            StartCoroutine(BindTrapUINextFrame(pi));
+        }
     }
 
     void OnDestroy()
@@ -30,13 +42,12 @@ public class TrapUIManager : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput pi)
     {
-        // フレームが安定してからバインド
         StartCoroutine(BindTrapUINextFrame(pi));
     }
 
     private IEnumerator BindTrapUINextFrame(PlayerInput pi)
     {
-        yield return null;
+        yield return null;  // 一フレーム待つ
 
         var ptc = pi.GetComponent<PlayerTrapController>();
         int idx = pi.playerIndex;

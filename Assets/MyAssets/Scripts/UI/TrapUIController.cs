@@ -2,21 +2,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Rendering;
-
 
 public class TrapUIController : MonoBehaviour
 {
     [Header("UI の参照 (子オブジェクトなど)")]
-    [SerializeField] private Transform iconContainer;
+    [SerializeField] Image iconImage;
     [SerializeField] TMP_Text countText;
 
     [Header("トラップ毎のアイコン一覧(TrapPrefabs と同順)")]
-    [SerializeField] private GameObject[] trapIconPrefabs;
+    [SerializeField] Sprite[] trapIcons;
 
     // 監視する PlayerTrapController
     private PlayerTrapController playerTrap;
-    private GameObject currentIconModel;
 
     /// <summary>
     /// Manager から呼んで紐づける
@@ -45,30 +42,9 @@ public class TrapUIController : MonoBehaviour
 
     private void HandleTrapSwitched(int index, int curCount, int maxCount)
     {
-        // (1) まず過去のモデルを消す
-        if (currentIconModel != null)
-            Destroy(currentIconModel);
-
-        // (2) 新しいモデルをアイコンコンテナに生成
-        if (index >= 0 && index < trapIconPrefabs.Length)
-        {
-            currentIconModel = Instantiate(
-                trapIconPrefabs[index],
-                iconContainer,
-                worldPositionStays: false
-            );
-
-            // ① 親と同じレイヤーに切り替え
-            SetLayerRecursively(currentIconModel.transform, iconContainer.gameObject.layer);
-
-            // ② ソートグループを追加して UI ソートレイヤー内で描画
-            var sg = currentIconModel.AddComponent<SortingGroup>();
-            sg.sortingLayerID = SortingLayer.NameToID("UI");
-            sg.sortingOrder = 1;
-
-            // 必要に応じてスケール／回転を微調整
-            currentIconModel.transform.localPosition = Vector3.zero;
-        }
+        // アイコン
+        if (index >= 0 && index < trapIcons.Length)
+            iconImage.sprite = trapIcons[index];
 
         // カウント表示
         countText.text = $"{curCount} / {maxCount}";
@@ -77,17 +53,4 @@ public class TrapUIController : MonoBehaviour
             ? Color.red
             : Color.white;
     }
-
-    /// <summary>
-    /// transform 以下を一括で layer を揃えるヘルパー
-    /// </summary>
-    void SetLayerRecursively(Transform t, int layer)
-    {
-        t.gameObject.layer = layer;
-        foreach (Transform c in t)
-            SetLayerRecursively(c, layer);
-    }
-
-
-
 }

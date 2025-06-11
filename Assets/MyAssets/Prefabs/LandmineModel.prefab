@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2544373650844141359}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickRoot.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 171581596823798463}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickB.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7867550365392093987}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: A_Landmine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3095523534942600335}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickA.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3811319797666115751}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickA.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6100138619619114719}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3401969266233208418}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickB.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 976299752532377799}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickB.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7388241633192059063}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LandmineRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4378664371921839083}
   - component: {fileID: 7132332240823363652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Landmine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1958069856031508678}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickA.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1442441676330003783}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickA.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2417691134014249368}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickB.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,9 +494,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8308165142692451758}
-  - component: {fileID: 3475469578032819249}
-  m_Layer: 0
-  m_Name: Landmine
+  - component: {fileID: -2535556779977070505}
+  m_Layer: 9
+  m_Name: LandmineModel
   m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,23 +518,27 @@ Transform:
   - {fileID: 6100138619619114719}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3475469578032819249
-MonoBehaviour:
+--- !u!135 &-2535556779977070505
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8908059258591689761}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b44ca578f1b622458272348c84f0695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 2
-  damage: 23
-  knockbackForce: 10
-  upwardModifier: 2
-  explosionEffectPrefab: {fileID: 6787014271751651573, guid: 745efe2ca775d3b4181e4a3adb8c4b76, type: 3}
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9140774458867301126
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +548,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7271027727614106242}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StickRoot.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
